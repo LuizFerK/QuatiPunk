@@ -1,0 +1,43 @@
+.header {
+  background-color: var(--color-white);
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 18px;
+
+  width: calc(100% - 36px);
+  height: 58px;
+
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.header h1 {
+  font-size: 18px;
+}
+
+.header button {
+  background-color: var(--color-primary-light);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  left: 8px;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 6px;
+  border: 0;
+}
+
+.header button svg {
+  min-width: 20px;
+  min-height: 20px;
+  color: var(--color-gray);
+}
