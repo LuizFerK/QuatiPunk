@@ -27,9 +27,9 @@ export default function Clients() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.container}>
-        <Search />
+        <Search placeholder="Nome do cliente..." />
         <ul>
-          {clients.map(client => <Client client={client} />)}
+          {clients.map(client => <Client key={client.id} client={client} />)}
         </ul>
       </main>
     </>

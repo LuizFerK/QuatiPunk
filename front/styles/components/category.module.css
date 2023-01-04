@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 40px;
+  height: 40px;
+
+  border-radius: 6px;
+}
+
+.container svg {
+  min-width: 20px;
+  min-height: 20px;
+  color: var(--color-gray);
+  margin: 0;
+}
+
+.electrical {
+  background-color: var(--color-yellow-light);
+}
+
+.electrical svg {
+  color: var(--color-yellow);
+}
+
+.paints {
+  background-color: var(--color-purple-light);
+}
+
+.paints svg {
+  color: var(--color-purple);
+}
+
+.hardware {
+  background-color: var(--color-dark-gray-light);
+}
+
+.hardware svg {
+  color: var(--color-dark-gray);
+}
+
+.connections {
+  background-color: var(--color-blue-light);
+}
+
+.connections svg {
+  color: var(--color-blue);
+}
+
+.cement {
+  background-color: var(--color-red-light);
+}
+
+.cement svg {
+  color: var(--color-red);
+}
+
+.finishes {
+  background-color: var(--color-orange-light);
+}
+
+.finishes svg {
+  color: var(--color-orange);
+}

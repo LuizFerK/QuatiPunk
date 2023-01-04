@@ -1,7 +1,30 @@
 .container {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
+  margin: 18px;
+}
+
+.container > div + div {
+  margin-left: 18px;
+}
+
+.categories {
+  background-color: var(--color-white);
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 9px;
+  
+  height: 58px;
+
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.categories > div + div {
+  margin-left: 9px;
 }
 
 .buttons {

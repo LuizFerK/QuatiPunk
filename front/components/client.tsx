@@ -24,10 +24,10 @@ export default function Client({ client }: ClientProps) {
           </div>
           <p className={poppins.className}>{client.name}</p>
         </section>
-        <div>
+        <section className={styles.infos}>
           <TbPhone />
           <p className={poppins.className}>{parsePhone(client.phone)}</p>
-        </div>
+        </section>
       </div>
     </li>
   )

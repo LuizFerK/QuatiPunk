@@ -7,6 +7,27 @@
   --color-primary: #EA4C89;
   --color-primary-light: #EA4C8920;
 
+  --color-green: #52BB41;
+  --color-green-light: #52BB4120;
+
+  --color-yellow: #FFF000;
+  --color-yellow-light: #FFF00030;
+
+  --color-purple: #8D19A3;
+  --color-purple-light: #8D19A320;
+
+  --color-dark-gray: #202124;
+  --color-dark-gray-light: #20212420;
+
+  --color-blue: #0080FF;
+  --color-blue-light: #0080FF20;
+
+  --color-red: #FF0040;
+  --color-red-light: #FF004020;
+
+  --color-orange: #FF8000;
+  --color-orange-light: #FF800020;
+
   /* Shadows */
   --shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
