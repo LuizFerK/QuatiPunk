@@ -1,0 +1,30 @@
+.container {
+  background-color: var(--color-white);
+  width: 490px;
+
+  display: flex;
+  align-items: center;
+
+  margin: 18px;
+  padding: 0 22px;
+
+  height: 58px;
+
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.container svg {
+  min-width: 20px;
+  min-height: 20px;
+  color: var(--color-gray);
+  margin-right: 28px;
+}
+
+.container input {
+  border: none;
+  background: none;
+  outline: none;
+  margin-top: 2px;
+  width: 100%;
+}

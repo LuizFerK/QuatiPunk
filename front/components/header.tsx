@@ -2,6 +2,8 @@ import { Poppins } from '@next/font/google'
 import { useRouter } from 'next/router'
 import { TbArrowLeft } from 'react-icons/tb'
 
+import Button from './button'
+
 import styles from '../styles/components/header.module.css'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
@@ -13,9 +15,7 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <button onClick={back}>
-        <TbArrowLeft />
-      </button>
+      <Button icon={TbArrowLeft} secondary onClick={back} />
       <h1 className={poppins.className}>{parsedRouteName}</h1>
     </header>
   )

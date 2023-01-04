@@ -1,10 +1,24 @@
 import Head from 'next/head'
-import { Poppins } from '@next/font/google'
+import { useQuery } from 'react-query'
+import { getClients } from '../api/clients'
+
+import Search from '../components/search'
+import Client from '../components/client'
+import Spinner from '../components/spinner'
+
 import styles from '../styles/pages/clientes.module.css'
 
-const poppins = Poppins({ weight: "400", subsets: ['latin'] })
-
 export default function Clients() {
+  const { isLoading, isError, data: clients } = useQuery('clients', getClients)
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
+  if (isError || !clients) {
+    return <></>
+  }
+
   return (
     <>
       <Head>
@@ -12,8 +26,11 @@ export default function Clients() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <h1 className={poppins.className}>Clientes</h1>
+      <main className={styles.container}>
+        <Search />
+        <ul>
+          {clients.map(client => <Client client={client} />)}
+        </ul>
       </main>
     </>
   )

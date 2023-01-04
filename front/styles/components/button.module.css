@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 40px;
+  height: 40px;
+
+  border-radius: 6px;
+  border: 0;
+}
+
+.container:hover {
+  background-color: var(--color-primary-light);
+}
+
+.container svg {
+  min-width: 20px;
+  min-height: 20px;
+  color: var(--color-gray);
+}
+
+.container:hover svg {
+  color: var(--color-primary);
+}
+
+.primary {
+  background-color: var(--color-primary);
+}
+
+.primary svg {
+  color: var(--color-white);
+}
+
+.active svg {
+  color: var(--color-primary);
+}
