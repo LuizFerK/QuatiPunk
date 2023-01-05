@@ -1,10 +1,31 @@
 import Head from 'next/head'
-import { Poppins } from '@next/font/google'
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import { getMonths } from '../api/analytics'
+import { TbCalendarTime } from 'react-icons/tb'
+import getMonthAndYear from '../utils/getMonthAndYear'
+
+import Select from '../components/select'
+import Spinner from '../components/spinner'
+
 import styles from '../styles/pages/analises.module.css'
 
-const poppins = Poppins({ weight: "400", subsets: ['latin'] })
-
 export default function Analytics() {
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    const date = new Date(Date.now()).toLocaleDateString().split("/")
+    return date[0] + "/" + date[2]
+  });
+
+  const { isLoading, isError, data: months } = useQuery('months', getMonths)
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
+  if (isError || !months) {
+    return <></>
+  }
+
   return (
     <>
       <Head>
@@ -12,8 +33,16 @@ export default function Analytics() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <h1 className={poppins.className}>Análises</h1>
+      <main className={styles.container}>
+        <Select
+          icon={TbCalendarTime}
+          value={selectedMonth}
+          options={months}
+          formatter={getMonthAndYear}
+          onSelect={value => setSelectedMonth(value)}
+          width="180px"
+          confirmButton
+        />
       </main>
     </>
   )

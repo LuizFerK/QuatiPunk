@@ -12,9 +12,11 @@ import styles from '../styles/components/category.module.css'
 
 interface CategoryProps {
   type: Category
+  selectable?: boolean
+  selected?: boolean
 }
 
-export default function Category({ type }: CategoryProps) {
+export default function Category({ type, selectable, selected }: CategoryProps) {
   const categoryIcon = {
     electrical: <TbBulb />,
     paints: <TbPaint />,
@@ -26,7 +28,9 @@ export default function Category({ type }: CategoryProps) {
 
   const categoryStyle = classNames({
     [styles.container]: true,
-    [styles[type]]: true
+    [styles[type]]: true,
+    [styles.selectable]: selectable,
+    [styles.selected]: selected
   })
 
   return (

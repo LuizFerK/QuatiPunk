@@ -1,7 +1,8 @@
 .container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin: 18px;
+  height: 58px;
 }
 
 .container > div + div {
@@ -23,7 +24,11 @@
   box-shadow: var(--shadow);
 }
 
-.categories > div + div {
+.categories > button {
+  border: none;
+}
+
+.categories > button + button {
   margin-left: 9px;
 }
 

@@ -63,3 +63,23 @@
 .finishes svg {
   color: var(--color-orange);
 }
+
+.selectable:hover svg {
+  color: var(--color-primary);
+}
+
+.selected {
+  background-color: var(--color-primary);
+}
+
+.selected svg {
+  color: var(--color-white);
+}
+
+.selected:hover {
+  background-color: var(--color-primary-light);
+}
+
+.selected:hover svg {
+  color: var(--color-primary);
+}

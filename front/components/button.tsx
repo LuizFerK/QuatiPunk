@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
+import { ButtonHTMLAttributes, DetailedHTMLProps, MouseEvent } from 'react'
 import { IconType } from 'react-icons'
 import classNames from 'classnames'
 
@@ -10,15 +10,20 @@ interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
   secondary?: boolean
 }
 
-export default function Button({ icon: Icon, active, secondary, ...rest }: ButtonProps) {
+export default function Button({ icon: Icon, active, secondary, onClick, ...rest }: ButtonProps) {
   const buttonStyle = classNames({
     [styles.container]: true,
     [styles.primary]: !secondary,
     [styles.active]: active
   })
 
+  function handleOnClick(e: MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation()
+    onClick && onClick(e)
+  }
+
   return (
-    <button className={buttonStyle} {...rest}>
+    <button className={buttonStyle} onClick={handleOnClick} {...rest}>
       <Icon />
     </button>
   )
