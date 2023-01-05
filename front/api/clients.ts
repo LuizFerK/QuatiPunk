@@ -1,6 +1,5 @@
-const baseUrl = "http://localhost:3000/clients"
+import api from '.'
 
-export async function getClients(): Promise<Client[]> {
-  const response = await fetch(baseUrl)
-  return await response.json()
+export async function getClients(){
+  return await api.get<Client[]>('/clients')
 }

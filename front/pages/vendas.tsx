@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useQuery } from 'react-query'
+import { useState, useEffect } from 'react'
 import { getOrders } from '../api/orders'
 
 import Order from '../components/order'
@@ -9,13 +9,24 @@ import Spinner from '../components/spinner'
 import styles from '../styles/pages/vendas.module.css'
 
 export default function Orders() {
-  const { isLoading, isError, data: orders } = useQuery('orders', getOrders)
+  const [isLoading, setIsLoading] = useState(true)
+  const [orders, setOrders] = useState<Order[]>([])
+
+  useEffect(() => {
+    async function fetchOrders() {
+      const { data } = await getOrders()
+      setIsLoading(false)
+      setOrders(data)
+    }
+
+    fetchOrders()
+  }, [])
 
   if (isLoading) {
     return <Spinner />
   }
 
-  if (isError || !orders) {
+  if (!orders) {
     return <></>
   }
 

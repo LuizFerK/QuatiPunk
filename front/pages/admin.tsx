@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import { Poppins } from '@next/font/google'
 import { TbKey, TbLock, TbArrowRight } from 'react-icons/tb'
@@ -10,6 +11,12 @@ import styles from '../styles/pages/admin.module.css'
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
 export default function Admin() {
+  const [password, setPassword] = useState("")
+
+  function handleSubmit() {
+    console.log("test")
+  }
+
   return (
     <>
       <Head>
@@ -27,8 +34,14 @@ export default function Admin() {
         <p className={poppins.className}>
           Para entrar, por favor, digite a senha de acesso:
         </p>
-        <Input icon={TbLock} placeholder="Digite sua senha..." width={490} type="password" />
-        <Button icon={TbArrowRight} />
+        <Input
+          icon={TbLock}
+          placeholder="Digite sua senha..."
+          width={490}
+          type="password"
+          onChange={e => setPassword(e.target.value)}
+        />
+        <Button disabled={password == ""} icon={TbArrowRight} onClick={handleSubmit} />
       </main>
     </>
   )

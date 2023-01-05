@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useQuery } from 'react-query'
+import { useState, useEffect } from 'react'
 import { getClients } from '../api/clients'
 
 import Search from '../components/search'
@@ -9,13 +9,24 @@ import Spinner from '../components/spinner'
 import styles from '../styles/pages/clientes.module.css'
 
 export default function Clients() {
-  const { isLoading, isError, data: clients } = useQuery('clients', getClients)
+  const [isLoading, setIsLoading] = useState(true)
+  const [clients, setClients] = useState<Client[]>([])
+
+  useEffect(() => {
+    async function fetchClients() {
+      const { data } = await getClients()
+      setIsLoading(false)
+      setClients(data)
+    }
+
+    fetchClients()
+  }, [])
 
   if (isLoading) {
     return <Spinner />
   }
 
-  if (isError || !clients) {
+  if (!clients) {
     return <></>
   }
 

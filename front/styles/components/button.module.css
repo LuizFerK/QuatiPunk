@@ -10,8 +10,17 @@
   border: 0;
 }
 
+.container:disabled {
+  cursor: not-allowed;
+  opacity: 0.2;
+}
+
 .container:hover {
   background-color: var(--color-primary-light);
+}
+
+.container:disabled:hover {
+  background-color: var(--color-primary);
 }
 
 .container svg {
@@ -23,6 +32,11 @@
 .container:hover svg {
   color: var(--color-primary);
 }
+
+.container:disabled:hover svg {
+  color: var(--color-white);
+}
+
 
 .primary {
   background-color: var(--color-primary);

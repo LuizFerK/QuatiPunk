@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import { useState } from 'react'
-import { useQuery } from 'react-query'
+import { useState, useEffect } from 'react'
 import { getMonths } from '../api/analytics'
 import { TbCalendarTime } from 'react-icons/tb'
 import getMonthAndYear from '../utils/getMonthAndYear'
@@ -11,18 +10,28 @@ import Spinner from '../components/spinner'
 import styles from '../styles/pages/analises.module.css'
 
 export default function Analytics() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [months, setMonths] = useState<string[]>([])
   const [selectedMonth, setSelectedMonth] = useState(() => {
     const date = new Date(Date.now()).toLocaleDateString().split("/")
     return date[0] + "/" + date[2]
   });
 
-  const { isLoading, isError, data: months } = useQuery('months', getMonths)
+  useEffect(() => {
+    async function fetchMonths() {
+      const { data } = await getMonths()
+      setIsLoading(false)
+      setMonths(data)
+    }
+
+    fetchMonths()
+  }, [])
 
   if (isLoading) {
     return <Spinner />
   }
 
-  if (isError || !months) {
+  if (!months) {
     return <></>
   }
 

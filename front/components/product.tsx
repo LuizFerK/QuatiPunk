@@ -11,7 +11,7 @@ const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
 interface ProductProps {
   product: Product
-  small: boolean
+  small?: boolean
 }
 
 export default function Product({ product, small }: ProductProps) {

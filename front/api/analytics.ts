@@ -1,6 +1,5 @@
-const baseUrl = "http://localhost:3000/analytics"
+import api from '.'
 
-export async function getMonths(): Promise<string[]> {
-  const response = await fetch(`${baseUrl}/months`)
-  return await response.json()
+export async function getMonths(){
+  return await api.get<string[]>('/analytics/months')
 }

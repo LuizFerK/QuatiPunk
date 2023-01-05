@@ -29,7 +29,7 @@ export default function Search({ placeholder, clients, categories }: SearchProps
   useEffect(() => {
     if (clientList) {
       const fetchClients = async () => {
-        const clients = await getClients()
+        const { data: clients } = await getClients()
         clients && setClientList(clients.map(client => client.name))
       }
 

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useQuery } from 'react-query'
+import { useState, useEffect } from 'react'
 import { getProducts } from '../api/products'
 
 import Search from '../components/search'
@@ -9,13 +9,24 @@ import Spinner from '../components/spinner'
 import styles from '../styles/pages/produtos.module.css'
 
 export default function Produtos() {
-  const { isLoading, isError, data: products } = useQuery('products', getProducts)
+  const [isLoading, setIsLoading] = useState(true)
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const { data } = await getProducts()
+      setIsLoading(false)
+      setProducts(data)
+    }
+
+    fetchProducts()
+  }, [])
 
   if (isLoading) {
     return <Spinner />
   }
 
-  if (isError || !products) {
+  if (!products) {
     return <></>
   }
 

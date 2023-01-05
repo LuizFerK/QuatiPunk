@@ -1,6 +1,5 @@
-const baseUrl = "http://localhost:3000/products"
+import api from '.'
 
-export async function getProducts(): Promise<Product[]> {
-  const response = await fetch(baseUrl)
-  return await response.json()
+export async function getProducts(){
+  return await api.get<Product[]>('/products')
 }
