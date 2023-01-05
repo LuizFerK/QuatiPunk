@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 78%;
+}
+
+.logo {
+  background-color: var(--color-white);
+  box-shadow: var(--shadow);
+  min-width: 104px;
+  min-height: 104px;
+  transform: rotate(45deg);
+  border-radius: 35px;
+
+  display: grid;
+  place-items: center;
+}
+
+.logo svg {
+  transform: rotate(-45deg);
+  width: 36px;
+  height: 36px;
+  color: var(--color-primary);
+}
+
+.container p:first-of-type {
+  margin: 58px 0;
+}
+
+.container p {
+  text-align: center;
+  max-width: 445px;
+  font-size: 14px;
+}
+
+.container span {
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.container div:last-of-type {
+  margin: 14px 0 28px;
+}

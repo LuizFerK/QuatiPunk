@@ -27,7 +27,7 @@ export default function Orders() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.container}>
-        <Search placeholder="Nome do produto..." clients categories />
+        <Search placeholder="Código da venda..." clients categories />
         <section className={styles.content}>
           <ol>
             {orders.filter(order => order.id % 2 == 1).map(order => <Order key={order.id} order={order} />)}
