@@ -1,0 +1,113 @@
+.li {
+  margin-bottom: 18px;
+  list-style: none;
+}
+
+.li svg {
+  width: 24px;
+  height: 24px;
+}
+
+.header {
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: space-between;
+
+  width: 523px;
+  height: 192px;
+
+  padding: 24px 24px 0 24px;
+
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.id {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  min-width: 68px;
+  height: 116px;
+  border-radius: 8px;
+
+  padding: 16px 0;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.infos {
+  width: 100%;
+  margin: 8px 22px 0;
+}
+
+.infos div {
+  display: flex;
+  align-items: center;
+  color: var(--color-gray);
+}
+
+.infos div + div {
+  margin-top: 14px;
+}
+
+.infos div p {
+  margin-left: 17px;
+  font-size: 14px;
+}
+
+.values {
+  background-color: var(--color-primary-light);
+  min-width: 116px;
+  height: 116px;
+  border-radius: 8px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.values div {
+  display: flex;
+  align-items: center;
+  color: var(--color-gray);
+}
+
+.values div + div {
+  margin-top: 12px;
+}
+
+.values div svg {
+  margin-right: 8px;
+}
+
+.values div:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 90px;
+  height: 40px;
+  padding-top: 2px;
+
+  font-size: 14px;
+  color: var(--color-green);
+
+  border-radius: 6px;
+  background-color: var(--color-green-light);
+}
+
+.values div:last-child span:first-child {
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.li ol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -32px;
+}

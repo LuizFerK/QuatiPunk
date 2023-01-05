@@ -94,3 +94,49 @@
   font-weight: bold;
   margin-right: 5px;
 }
+
+.small {
+  width: 460px;
+  height: 72px;
+  margin: 0;
+}
+
+.small > div {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0 22px;
+  height: 72px;
+}
+
+.small > div section > div {
+  color: var(--color-white);
+}
+
+.small > div section:first-child > p {
+  width: 140px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.small > div section:first-child > div {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  margin-right: 15px;
+  min-width: 46px;
+  height: 46px;
+}
+
+.small > div section:last-of-type > div:last-of-type {
+  background-color: var(--color-white-light);
+  color: var(--color-white);
+}
+
+.small > div section:last-of-type > div + div {
+  margin-left: 13px;
+}
+
+.small + .small {
+  margin-top: 8px;
+}

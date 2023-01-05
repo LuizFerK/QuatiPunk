@@ -28,9 +28,9 @@ export default function Produtos() {
       </Head>
       <main className={styles.container}>
         <Search placeholder="Nome do produto..." categories />
-        <ul>
+        <ol>
           {products.map(product => <Product key={product.id} product={product} />)}
-        </ul>
+        </ol>
       </main>
     </>
   )

@@ -80,7 +80,7 @@ export default function Select({
         <TbChevronDown className={chevronStyle} />
         {confirmButton && <Button icon={TbArrowRight} />}
       </div>
-      <ul>
+      <ol>
         {options.map((option, idx) => (
           <li key={idx} className={optionStyle(option)}>
             <button
@@ -91,7 +91,7 @@ export default function Select({
             </button>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   )
 }

@@ -28,9 +28,9 @@ export default function Clients() {
       </Head>
       <main className={styles.container}>
         <Search placeholder="Nome do cliente..." />
-        <ul>
+        <ol>
           {clients.map(client => <Client key={client.id} client={client} />)}
-        </ul>
+        </ol>
       </main>
     </>
   )

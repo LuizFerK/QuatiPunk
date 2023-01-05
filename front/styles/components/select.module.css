@@ -5,6 +5,7 @@
   padding: 0 8px;
   height: 58px;
   overflow: hidden;
+  z-index: 1;
 }
 
 .extended {
@@ -45,7 +46,7 @@
   transform: rotate(-180deg);
 }
 
-.container ul {
+.container ol {
   padding-bottom: 8px;
 }
 

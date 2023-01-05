@@ -275,6 +275,184 @@
       "um": "cm"
     }
   ],
+  "orders": [
+    {
+      "id": 1,
+      "date": "08/04/2023",
+      "quantity": 4,
+      "price": 39.96,
+      "client": {
+        "id": 1,
+        "name": "Cliente exemplo",
+        "phone": "49984252003"
+      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Produto exemplodasdasdasdads",
+          "quantity": "20",
+          "category": "electrical",
+          "price": 9999.99
+        },
+        {
+          "id": 2,
+          "name": "Produto exemplo2",
+          "quantity": "20",
+          "category": "paints",
+          "price": 999.99
+        },
+        {
+          "id": 3,
+          "name": "Produto exemplo",
+          "quantity": "20",
+          "category": "hardware",
+          "price": 99.99
+        },
+        {
+          "id": 4,
+          "name": "Produto exemplo",
+          "quantity": "20",
+          "category": "connections",
+          "price": 9.99
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "08/04/2023",
+      "quantity": 2,
+      "price": 39.96,
+      "client": {
+        "id": 1,
+        "name": "Cliente exemplo",
+        "phone": "49984252003"
+      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Produto exemplodasdasdasdads",
+          "quantity": "20",
+          "category": "electrical",
+          "price": 9999.99
+        },
+        {
+          "id": 2,
+          "name": "Produto exemplo2",
+          "quantity": "20",
+          "category": "paints",
+          "price": 999.99
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "08/04/2023",
+      "quantity": 1,
+      "price": 39.96,
+      "client": {
+        "id": 1,
+        "name": "Cliente exemplo",
+        "phone": "49984252003"
+      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Produto exemplodasdasdasdads",
+          "quantity": "20",
+          "category": "electrical",
+          "price": 9999.99
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "date": "08/04/2023",
+      "quantity": 2,
+      "price": 39.96,
+      "client": {
+        "id": 1,
+        "name": "Cliente exemplo",
+        "phone": "49984252003"
+      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Produto exemplodasdasdasdads",
+          "quantity": "20",
+          "category": "electrical",
+          "price": 9999.99
+        },
+        {
+          "id": 2,
+          "name": "Produto exemplo2",
+          "quantity": "20",
+          "category": "paints",
+          "price": 999.99
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "date": "08/04/2023",
+      "quantity": 2,
+      "price": 39.96,
+      "client": {
+        "id": 1,
+        "name": "Cliente exemplo",
+        "phone": "49984252003"
+      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Produto exemplodasdasdasdads",
+          "quantity": "20",
+          "category": "electrical",
+          "price": 9999.99
+        },
+        {
+          "id": 2,
+          "name": "Produto exemplo2",
+          "quantity": "20",
+          "category": "paints",
+          "price": 999.99
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "date": "08/04/2023",
+      "quantity": 3,
+      "price": 39.96,
+      "client": {
+        "id": 1,
+        "name": "Cliente exemplo",
+        "phone": "49984252003"
+      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Produto exemplodasdasdasdads",
+          "quantity": "20",
+          "category": "electrical",
+          "price": 9999.99
+        },
+        {
+          "id": 2,
+          "name": "Produto exemplo2",
+          "quantity": "20",
+          "category": "paints",
+          "price": 999.99
+        },
+        {
+          "id": 3,
+          "name": "Produto exemplo",
+          "quantity": "20",
+          "category": "hardware",
+          "price": 99.99
+        }
+      ]
+    }
+  ],
   "analyticsMonths": [
     "9/2022",
     "10/2022",

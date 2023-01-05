@@ -1,9 +1,24 @@
 import Head from 'next/head'
+import { useQuery } from 'react-query'
+import { getOrders } from '../api/orders'
+
+import Order from '../components/order'
 import Search from '../components/search'
+import Spinner from '../components/spinner'
 
 import styles from '../styles/pages/vendas.module.css'
 
 export default function Orders() {
+  const { isLoading, isError, data: orders } = useQuery('orders', getOrders)
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
+  if (isError || !orders) {
+    return <></>
+  }
+
   return (
     <>
       <Head>
@@ -13,6 +28,14 @@ export default function Orders() {
       </Head>
       <main className={styles.container}>
         <Search placeholder="Nome do produto..." clients categories />
+        <section className={styles.content}>
+          <ol>
+            {orders.filter(order => order.id % 2 == 1).map(order => <Order key={order.id} order={order} />)}
+          </ol>
+          <ol>
+            {orders.filter(order => order.id % 2 == 0).map(order => <Order key={order.id} order={order} />)}
+          </ol>
+        </section>
       </main>
     </>
   )

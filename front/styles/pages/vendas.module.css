@@ -5,3 +5,11 @@
   height: calc(100vh - 94px);
   overflow-y: scroll;
 }
+
+.content {
+  display: flex;
+}
+
+.content ol + ol {
+  margin-left: 20px;
+}

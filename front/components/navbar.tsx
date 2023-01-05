@@ -46,7 +46,7 @@ export default function NavBar() {
   })
 
   const admStyle = classNames({
-    [styles.ul]: true,
+    [styles.ol]: true,
     [styles.adm]: true
   })
 
@@ -57,7 +57,7 @@ export default function NavBar() {
       onMouseLeave={() => setIsHover(false)}
     >
       <div className={styles.logo} />
-      <ul className={styles.ul}>
+      <ol className={styles.ol}>
         <li className={liStyle("/vendas")}>
           <Link href="/vendas">
             <TbReportMoney />
@@ -82,15 +82,15 @@ export default function NavBar() {
             <span className={poppins.className}>Clientes</span>
           </Link>
         </li>
-      </ul>
-      <ul className={admStyle}>
+      </ol>
+      <ol className={admStyle}>
         <li className={liStyle("/admin")}>
           <Link href="/admin">
             <TbKey />
             <span className={poppins.className}>Admin</span>
           </Link>
         </li>
-      </ul>
+      </ol>
     </nav>
   )
 }

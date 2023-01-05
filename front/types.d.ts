@@ -1,7 +1,7 @@
 type Category = "electrical" | "paints" | "hardware" | "connections" | "cement" | "finishes"
 
 interface Client {
-  id: string
+  id: number
   name: string
   phone: string
   cpf: string
@@ -10,11 +10,20 @@ interface Client {
 }
 
 interface Product {
-  id: string
+  id: number
   name: string
   quantity: number
   max_quantity: number
   category: Category
   price: number
   um: string
+}
+
+interface Order {
+  id: number
+  date: string
+  quantity: number
+  price: number
+  client: Client
+  products: Product[]
 }
