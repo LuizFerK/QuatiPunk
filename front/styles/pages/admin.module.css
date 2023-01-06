@@ -35,11 +35,15 @@
   font-size: 14px;
 }
 
+.container p:last-of-type {
+  margin-bottom: 14px;
+}
+
 .container span {
   font-weight: bold;
   color: var(--color-primary);
 }
 
 .container div:last-of-type {
-  margin: 14px 0 28px;
+  margin-bottom: 28px;
 }

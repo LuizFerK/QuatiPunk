@@ -1,7 +1,8 @@
-import { Poppins } from '@next/font/google'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Poppins } from '@next/font/google'
 import { useState, useEffect } from 'react'
+import { useAuth } from '../hooks/useAuth'
 import classNames from 'classnames'
 import {
   TbReportMoney,
@@ -17,6 +18,7 @@ const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
 export default function NavBar() {
   const { route } = useRouter()
+  const { token } = useAuth()
   
   const [isHover, setIsHover] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -47,7 +49,8 @@ export default function NavBar() {
 
   const admStyle = classNames({
     [styles.ol]: true,
-    [styles.adm]: true
+    [styles.adm]: true,
+    [styles.auth]: !!token
   })
 
   return (
