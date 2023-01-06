@@ -47,7 +47,7 @@ export default function NavBar() {
     [styles.selected]: liRoute == route
   })
 
-  const admStyle = classNames({
+  const admStyle = () => classNames({
     [styles.ol]: true,
     [styles.adm]: true,
     [styles.auth]: !!token
@@ -86,7 +86,7 @@ export default function NavBar() {
           </Link>
         </li>
       </ol>
-      <ol className={admStyle}>
+      <ol className={admStyle()}>
         <li className={liStyle("/admin")}>
           <Link href="/admin">
             <TbKey />

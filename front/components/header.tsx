@@ -12,11 +12,12 @@ export default function Header() {
   const { route, back } = useRouter()
 
   const parsedRouteName = route.slice(1, 2).toUpperCase() + route.slice(2)
+  const routeName = parsedRouteName.replace("/[id]", "")
 
   return (
     <header className={styles.header}>
       <Button icon={TbArrowLeft} secondary onClick={back} />
-      <h1 className={poppins.className}>{parsedRouteName}</h1>
+      <h1 className={poppins.className}>{routeName}</h1>
     </header>
   )
 }

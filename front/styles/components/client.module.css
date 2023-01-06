@@ -1,8 +1,18 @@
 .li {
+  list-style: none;
+}
+
+.li a {
   display: flex;
   align-items: center;
   margin-bottom: 18px;
   height: 83px;
+  transition: transform 0.2s;
+}
+
+.li a:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
 }
 
 .aside {

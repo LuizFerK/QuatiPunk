@@ -1,9 +1,20 @@
 .li {
+  list-style: none;
+}
+
+.li a {
   display: flex;
   align-items: center;
   margin-bottom: 18px;
   height: 83px;
+  transition: transform 0.2s;
 }
+
+.li a:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
 
 .aside {
   background-color: var(--color-white);
@@ -95,24 +106,24 @@
   margin-right: 5px;
 }
 
-.small {
+.small > a {
   width: 460px;
   height: 72px;
   margin: 0;
 }
 
-.small > div {
+.small > a > div {
   background-color: var(--color-primary);
   color: var(--color-white);
   padding: 0 22px;
   height: 72px;
 }
 
-.small > div section > div {
+.small > a > div section > div {
   color: var(--color-white);
 }
 
-.small > div section:first-child > p {
+.small > a > div section:first-child > p {
   width: 140px;
   display: inline-block;
   white-space: nowrap;
@@ -120,7 +131,7 @@
   text-overflow: ellipsis;
 }
 
-.small > div section:first-child > div {
+.small > a > div section:first-child > div {
   background-color: var(--color-white);
   color: var(--color-primary);
   margin-right: 15px;
@@ -128,12 +139,12 @@
   height: 46px;
 }
 
-.small > div section:last-of-type > div:last-of-type {
+.small > a > div section:last-of-type > div:last-of-type {
   background-color: var(--color-white-light);
   color: var(--color-white);
 }
 
-.small > div section:last-of-type > div + div {
+.small > a > div section:last-of-type > div + div {
   margin-left: 13px;
 }
 

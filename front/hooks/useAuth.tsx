@@ -18,17 +18,7 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [token, setToken] = useState<string | null>(() => {
-    const token = localStorage.getItem('@QuatiPunk:token')
-
-    if (token) {
-      api.defaults.headers.authorization = `Bearer ${token}`
-
-      return token
-    }
-
-    return null
-  })
+  const [token, setToken] = useState<string | null>(null)
 
   const signIn = useCallback(async (password: string): Promise<Status> => {
     // const response = await api.post('sessions', { password })
@@ -40,7 +30,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const { token } = response.data as any
 
-    localStorage.setItem('@QuatiPunk:token', token)
     api.defaults.headers.authorization = `Bearer ${token}`
 
     setToken(token)
@@ -48,11 +37,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return { status: "success" }
   }, [])
 
-  const signOut = useCallback(() => {
-    localStorage.removeItem('@QuatiPunk:token')
-
-    setToken(null)
-  }, [])
+  const signOut = useCallback(() => setToken(null), [])
 
   return (
     <AuthContext.Provider

@@ -17,6 +17,7 @@
   align-items: center;
   white-space: nowrap;
   outline: none;
+  cursor: pointer;
 
   height: 58px;
 
