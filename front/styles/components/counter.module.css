@@ -1,0 +1,36 @@
+.container {
+  background-color: var(--color-white);
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 8px 0 22px;
+
+  width: min-content;
+  min-height: 58px;
+
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.container > svg {
+  min-width: 24px;
+  min-height: 24px;
+  color: var(--color-gray);
+  margin-right: 28px;
+}
+
+.container input {
+  border: none;
+  background: none;
+  outline: none;
+  margin: 0 8px;
+  margin-top: 2px;
+  width: 24px;
+  text-align: center;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 12px;
+}
