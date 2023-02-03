@@ -40,13 +40,13 @@ export default function ProductDetails() {
   const categoryList: Category[] = ["electrical", "paints", "hardware", "connections", "cement", "finishes"]
 
   useEffect(() => {
-    async function fetchProducts() {
+    async function fetchProduct() {
       const { data } = await getProduct(id as string)
       setIsLoading(false)
       setProduct(data)
     }
 
-    id && fetchProducts()
+    id && fetchProduct()
   }, [id])
 
   useEffect(() => {

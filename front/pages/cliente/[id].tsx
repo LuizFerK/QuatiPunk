@@ -38,13 +38,13 @@ export default function ClientDetails() {
   const [client, setClient] = useState<Client>({} as Client)
 
   useEffect(() => {
-    async function fetchClients() {
+    async function fetchClient() {
       const { data } = await getClient(id as string)
       setIsLoading(false)
       setClient(data)
     }
 
-    id && fetchClients()
+    id && fetchClient()
   }, [id])
 
   useEffect(() => {

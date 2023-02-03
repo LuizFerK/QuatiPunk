@@ -1,5 +1,5 @@
 import { Poppins } from '@next/font/google'
-import { useState, useRef } from 'react'
+import { useState, useRef, CSSProperties } from 'react'
 import { IconType } from 'react-icons'
 import { TbChevronDown, TbArrowRight } from 'react-icons/tb'
 import classNames from 'classnames'
@@ -13,6 +13,7 @@ const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
 interface SelectProps {
   icon: IconType
+  label?: string
   value: any
   options: any[]
   formatter?: (value: any) => string
@@ -20,17 +21,20 @@ interface SelectProps {
   width?: number | string
   confirmButton?: boolean
   placeholder?: string
+  style?: CSSProperties
 }
 
 export default function Select({
   icon: Icon,
+  label,
   value,
   options,
   formatter = (value: any) => String(value),
   onSelect,
   width,
   confirmButton,
-  placeholder
+  placeholder,
+  style
 }: SelectProps) {
   const [placeholderStatus, setPlaceholderStatus] = useState(!!placeholder)
   const [isOpen, setIsOpen] = useState(false)
@@ -48,9 +52,15 @@ export default function Select({
     setIsOpen(false)
   }
 
+  const labelStyle = classNames({
+    [poppins.className]: true,
+    [styles.label]: true
+  })
+
   const selectStyle = classNames({
     [styles.container]: true,
-    [styles.extended]: isOpen
+    [styles.extended]: isOpen,
+    [styles.width100]: width === "100%"
   })
 
   const valueStyle = classNames({
@@ -68,30 +78,33 @@ export default function Select({
   })
 
   return (
-    <div className={selectStyle} ref={selectRef}>
-      <div className={styles.button} onClick={toggleOpen}>
-        <Icon />
-        <p
-          className={valueStyle}
-          style={{ width: width || "min-content" }}
-        >
-          {placeholderStatus ? placeholder : formatter(value)}
-        </p>
-        <TbChevronDown className={chevronStyle} />
-        {confirmButton && <Button icon={TbArrowRight} />}
+    <div style={style}>
+      {label && <label className={labelStyle}>{label}</label>}
+      <div className={selectStyle} ref={selectRef}>
+        <div className={styles.button} onClick={toggleOpen}>
+          <Icon />
+          <p
+            className={valueStyle}
+            style={{ width: width || "min-content" }}
+          >
+            {placeholder && placeholderStatus ? placeholder : formatter(value)}
+          </p>
+          <TbChevronDown className={chevronStyle} />
+          {confirmButton && <Button icon={TbArrowRight} />}
+        </div>
+        <ol>
+          {options.map((option, idx) => (
+            <li key={idx} className={optionStyle(option)}>
+              <button
+                className={poppins.className}
+                onClick={() => handleOnClick(option)}
+              >
+                {formatter(option)}
+              </button>
+            </li>
+          ))}
+        </ol>
       </div>
-      <ol>
-        {options.map((option, idx) => (
-          <li key={idx} className={optionStyle(option)}>
-            <button
-              className={poppins.className}
-              onClick={() => handleOnClick(option)}
-            >
-              {formatter(option)}
-            </button>
-          </li>
-        ))}
-      </ol>
     </div>
   )
 }
