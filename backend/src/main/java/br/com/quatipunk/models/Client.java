@@ -81,7 +81,7 @@ public class Client {
 	}
 
 	public String getMail() {
-		return name;
+		return mail;
 	}
 
 	public void setMail(String mail) {
