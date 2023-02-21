@@ -1,6 +1,7 @@
 package br.com.quatipunk.models;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -26,6 +27,13 @@ public class Order {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "clientId")
 	private Client client;
+
+	@ManyToMany
+	@JoinTable(
+		name = "order_products", 
+		joinColumns = @JoinColumn(name = "orderId"), 
+		inverseJoinColumns = @JoinColumn(name = "productId"))
+	Set<Product> products;
 
 	public static Order paramsToOrder(OrderParams orderParams) {
 		Order newOrder = new Order();
@@ -75,5 +83,13 @@ public class Order {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 }

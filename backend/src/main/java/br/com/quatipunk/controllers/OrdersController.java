@@ -1,7 +1,9 @@
 package br.com.quatipunk.controllers;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +22,10 @@ import br.com.quatipunk.dtos.OrderParams;
 import br.com.quatipunk.hooks.Error;
 import br.com.quatipunk.models.Client;
 import br.com.quatipunk.models.Order;
+import br.com.quatipunk.models.Product;
 import br.com.quatipunk.repositories.ClientRepository;
 import br.com.quatipunk.repositories.OrderRepository;
+import br.com.quatipunk.repositories.ProductRepository;
 
 /**
  *
@@ -34,6 +38,9 @@ public class OrdersController {
   
   @Autowired
 	ClientRepository clientRepository;
+  
+  @Autowired
+	ProductRepository productRepository;
 
   /**
    *
@@ -71,9 +78,21 @@ public class OrdersController {
   )
   public Object create(@RequestBody OrderParams orderParams) {
     Optional<Client> client = clientRepository.findById(orderParams.getClientId());
+    Set<Product> products = new HashSet<Product>();
+
+    for (Integer productId : orderParams.getProductIds()) {
+      Optional<Product> product = productRepository.findById(productId);
+
+      if (product.isPresent()) {
+        products.add(product.get());
+      } else {
+        return new ResponseEntity<Error>(Error.notFound(), HttpStatus.NOT_FOUND);
+      }
+    }
 
     Order order = Order.paramsToOrder(orderParams);
-
+    order.setProducts(products);
+    
     if (client.isPresent()) {
       order.setClient(client.get());
     } else {
