@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Poppins } from '@next/font/google'
 import { TbPhone } from 'react-icons/tb'
 import getWordInitials from '../utils/getWordInitials'
+import upperCaseFirstLetter from '../utils/upperCaseFirstLetter'
 import parsePhone from '../utils/parsePhone'
 
 import styles from '../styles/components/client.module.css'
@@ -24,7 +25,7 @@ export default function Client({ client }: ClientProps) {
             <div className={styles.pseudoImg}>
               <span className={poppins.className}>{getWordInitials(client.name)}</span>
             </div>
-            <p className={poppins.className}>{client.name}</p>
+            <p className={poppins.className}>{upperCaseFirstLetter(client.name)}</p>
           </section>
           <section className={styles.infos}>
             <TbPhone />

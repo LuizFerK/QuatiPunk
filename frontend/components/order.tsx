@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Poppins } from '@next/font/google'
 import { TbBarcode, TbCalendarTime, TbUser, TbPhone, TbCircleSquare } from 'react-icons/tb'
 import parsePhone from '../utils/parsePhone'
+import parseDate from '../utils/parseDate'
 import Product from './product'
 
 import styles from '../styles/components/order.module.css'
@@ -24,7 +25,7 @@ export default function Order({ order }: OrderProps) {
           <section className={styles.infos}>
             <div>
               <TbCalendarTime />
-              <p className={poppins.className}>{order.date}</p>
+              <p className={poppins.className}>{parseDate(order.date)}</p>
             </div>
             <div>
               <TbUser />

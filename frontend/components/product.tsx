@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Poppins } from '@next/font/google'
 import { TbBox } from 'react-icons/tb'
 import getWordInitials from '../utils/getWordInitials'
+import upperCaseFirstLetter from '../utils/upperCaseFirstLetter'
 import classNames from 'classnames'
 
 import Category from '../components/category'
@@ -34,7 +35,7 @@ export default function Product({ product, small }: ProductProps) {
             <div className={styles.pseudoImg}>
               <span className={poppins.className}>{getWordInitials(product.name)}</span>
             </div>
-            <p className={poppins.className}>{product.name}</p>
+            <p className={poppins.className}>{upperCaseFirstLetter(product.name)}</p>
           </section>
           <section className={styles.infos}>
             <div>
