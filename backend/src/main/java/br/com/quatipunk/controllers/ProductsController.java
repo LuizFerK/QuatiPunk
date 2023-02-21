@@ -68,7 +68,6 @@ public class ProductsController {
       Product persistedProduct = productRepository.save(product);
       return new ResponseEntity<Product>(persistedProduct, HttpStatus.OK);
     } catch(Exception err) {
-      System.out.println(err);
       return new ResponseEntity<Error>(Error.badRequest(), HttpStatus.BAD_REQUEST);
     }
   }

@@ -68,7 +68,6 @@ public class ClientsController {
       Client persistedClient = clientRepository.save(client);
       return new ResponseEntity<Client>(persistedClient, HttpStatus.OK);
     } catch(Exception err) {
-      System.out.println(err);
       return new ResponseEntity<Error>(Error.badRequest(), HttpStatus.BAD_REQUEST);
     }
   }
