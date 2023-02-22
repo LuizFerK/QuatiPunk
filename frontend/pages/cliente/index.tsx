@@ -3,12 +3,11 @@ import { Poppins } from '@next/font/google'
 import { useRouter } from 'next/router'
 import { useState, useEffect, FormEvent } from 'react'
 import { useAuth } from '../../hooks/useAuth'
-import { getClient, updateClient, deleteClient } from '../../api/clients'
+import { createClient } from '../../api/clients'
 import {
   TbUser,
   TbAddressBook,
   TbArrowRight,
-  TbTrash,
   TbPhone,
   TbMapPin,
   TbMail
@@ -16,7 +15,6 @@ import {
 
 import Input from '../../components/input'
 import Button from '../../components/button'
-import Spinner from '../../components/spinner'
 
 import styles from '../../styles/pages/cliente.module.css'
 
@@ -28,25 +26,13 @@ interface Error {
 }
 
 export default function ClientDetails() {
-  const { id } = useRouter().query
-  const { push } = useRouter()
   const { token } = useAuth()
+  const { push } = useRouter()
 
-  const [isLoading, setIsLoading] = useState(true)
   const [errors, setErrors] = useState<Error[]>([])
   const [isFilled, setIsFilled] = useState(false)
 
   const [client, setClient] = useState<Client>({} as Client)
-
-  useEffect(() => {
-    async function fetchClient() {
-      const { data } = await getClient(id as string)
-      setIsLoading(false)
-      setClient(data)
-    }
-
-    id && fetchClient()
-  }, [id])
 
   useEffect(() => {
     // validade formats
@@ -85,20 +71,9 @@ export default function ClientDetails() {
       setErrors(lastErrors => [{ field: "phone", message: "Telefone deve ter 11 caracteres" }, ...lastErrors])
     }
 
-    await updateClient(client.id, client)
-  }
-
-  async function handleDelete() {
-    await deleteClient(client.id)
-    push('/clientes')
-  }
-
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (!client) {
-    return <></>
+    const { data } = await createClient(client)
+    
+    push(`/cliente/${data.id}`)
   }
 
   return (
@@ -131,6 +106,7 @@ export default function ClientDetails() {
           icon={TbAddressBook}
           label="CPF:"
           placeholder="12345678900"
+          type="number"
           value={client.cpf}
           onChange={e => setClient({ ...client, cpf: e.target.value })}
         />
@@ -158,7 +134,6 @@ export default function ClientDetails() {
           onChange={e => setClient({ ...client, mail: e.target.value })}
         />
         <div>
-          <Button icon={TbTrash} secondary onClick={handleDelete} />
           <Button disabled={!isFilled} icon={TbArrowRight} />
         </div>
       </form>

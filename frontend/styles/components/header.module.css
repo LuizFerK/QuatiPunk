@@ -19,7 +19,12 @@
   font-size: 18px;
 }
 
-.header button {
+.header button:first-of-type {
   position: absolute;
   left: 8px;
+}
+
+.header button:last-of-type {
+  position: absolute;
+  right: 8px;
 }

@@ -27,25 +27,40 @@
   color: var(--color-primary);
 }
 
-.container p:first-of-type {
+.container > p:first-of-type {
   margin: 48px 0;
   font-weight: bold;
 }
 
-.container p {
+.container > p {
   text-align: center;
   max-width: 445px;
   font-size: 14px;
 }
 
-.container p:last-of-type {
+.container > p:last-of-type {
   margin-bottom: 0;
 }
 
 .container div:last-of-type {
-  margin-bottom: 28px;
+  margin-top: 28px;
+  display: flex;
+}
+
+.container div:last-of-type button + button {
+  margin-left: 16px;
 }
 
 .container label {
   margin-top: 20px;
+}
+
+.errors {
+  background-color: var(--color-red-light);
+  border-radius: 8px;
+  padding: 5px 20px;
+  margin-top: 20px;
+  margin-bottom: -10px;
+  text-align: center;
+  color: var(--color-red);
 }

@@ -7,3 +7,15 @@ export async function getClients() {
 export async function getClient(id: string) {
   return await api.get<Client>(`/clients/${id}`)
 }
+
+export async function createClient(data: Client) {
+  return await api.post<Client>(`/clients`, data)
+}
+
+export async function updateClient(id: number, data: Client) {
+  return await api.put<Client>(`/clients/${id}`, data)
+}
+
+export async function deleteClient(id: number) {
+  return await api.delete<Client>(`/clients/${id}`)
+}
