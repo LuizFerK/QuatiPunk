@@ -10,7 +10,10 @@ import styles from '../styles/pages/clientes.module.css'
 
 export default function Clients() {
   const [isLoading, setIsLoading] = useState(true)
+  const [search, setSearch] = useState<Search>({default: true} as Search)
+  
   const [clients, setClients] = useState<Client[]>([])
+  const [filteredClients, setFilteredClients] = useState<Client[]>([])
 
   useEffect(() => {
     async function fetchClients() {
@@ -21,6 +24,16 @@ export default function Clients() {
 
     fetchClients()
   }, [])
+
+  useEffect(() => {
+    setFilteredClients(clients)
+
+    if (!search.default) {
+      search.input && setFilteredClients(allClients => allClients.filter(client => client.name.includes(search.input as string)))
+      search.order === "asc" && setFilteredClients(allClients => [...allClients].sort((a, b) => (a.name > b.name) ? 1 : -1))
+      search.order === "desc" && setFilteredClients(allClients => [...allClients].sort((a, b) => (a.name > b.name) ? -1 : 1))
+    }
+  }, [clients, search])
 
   if (isLoading) {
     return <Spinner />
@@ -38,9 +51,9 @@ export default function Clients() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.container}>
-        <Search placeholder="Nome do cliente..." />
+        <Search placeholder="Nome do cliente..." onChange={opts => setSearch(opts)} />
         <ol>
-          {clients.map(client => <Client key={client.id} client={client} />)}
+          {filteredClients.map(client => <Client key={client.id} client={client} />)}
         </ol>
       </main>
     </>

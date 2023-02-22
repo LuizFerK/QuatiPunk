@@ -33,3 +33,11 @@ interface Error {
   field: string
   message: string
 }
+
+interface Search {
+  input?: string
+  order?: "asc" | "desc"
+  category?: Category
+  client?: string
+  default: boolean
+}

@@ -18,10 +18,11 @@ interface SearchProps {
   placeholder: string
   clients?: boolean
   categories?: boolean
+  onChange?: (opts: Search) => void
 }
 
-export default function Search({ placeholder, clients, categories }: SearchProps) {
-  const [selectedClient, setSelectedClient] = useState("");
+export default function Search({ placeholder, clients, categories, onChange }: SearchProps) {
+  const [opts, setOpts] = useState<Search>({} as Search);
   const [clientList, setClientList] = useState<string[]>([]);
   
   const categoryList: Category[] = ["electrical", "paints", "hardware", "connections", "cement", "finishes"]
@@ -37,15 +38,24 @@ export default function Search({ placeholder, clients, categories }: SearchProps
     }
   }, [])
 
+  function handleSearch() {
+    onChange && onChange({...opts, default: false})
+  }
+
   return (
     <section className={styles.container}>
-      <Input icon={TbSearch} placeholder={placeholder} width={clients ? 326 : 490} />
+      <Input
+        icon={TbSearch}
+        placeholder={placeholder}
+        width={clients ? 326 : 490}
+        onChange={e => setOpts({...opts, input: e.target.value})}
+      />
       {clients && (
         <Select
           icon={TbUser}
-          value={selectedClient}
+          value={opts.client}
           options={clientList}
-          onSelect={value => setSelectedClient(value)}
+          onSelect={client => setOpts({...opts, client: client})}
           width={200}
           placeholder='Nome do cliente...'
         />
@@ -53,7 +63,7 @@ export default function Search({ placeholder, clients, categories }: SearchProps
       {categories && (
         <div className={styles.categories}>
           {categoryList.map(category => (
-            <button key={category}>
+            <button key={category} type="button" onClick={() => setOpts({...opts, category: category})}>
               <Category
                 type={category}
                 selectable
@@ -64,9 +74,19 @@ export default function Search({ placeholder, clients, categories }: SearchProps
         </div>
       )}
       <div className={styles.buttons}>
-        <Button icon={TbSortDescending} secondary active={true} />
-        <Button icon={TbSortAscending} secondary active={false} />
-        <Button icon={TbArrowRight} />
+        <Button
+          icon={TbSortDescending}
+          secondary
+          active={opts.order === "desc"}
+          onClick={() => setOpts({...opts, order: "desc"})}
+        />
+        <Button
+          icon={TbSortAscending}
+          secondary
+          active={opts.order === "asc"}
+          onClick={() => setOpts({...opts, order: "asc"})}
+        />
+        <Button icon={TbArrowRight} onClick={handleSearch} />
       </div>
     </section>
   )
