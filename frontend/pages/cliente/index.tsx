@@ -20,11 +20,6 @@ import styles from '../../styles/pages/cliente.module.css'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
-interface Error {
-  field: string
-  message: string
-}
-
 export default function ClientDetails() {
   const { token } = useAuth()
   const { push } = useRouter()
@@ -47,28 +42,18 @@ export default function ClientDetails() {
     }
 
     setIsFilled(false)
-  }, [
-    client.name,
-    client.cpf,
-    client.phone,
-    client.address,
-    client.mail
-  ])
-
-  if (!client) {
-    return <></>
-  }
+  }, [client])
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setErrors([])
 
     if (client.cpf && client.cpf.length != 11) {
-      setErrors(lastErrors => [{ field: "cpf", message: "CPF deve ter 11 caracteres" }, ...lastErrors])
+      setErrors(lastErrors => [{ field: "cpf", message: "CPF deve ter 11 caracteres" }, ...lastErrors] as Error[])
     }
 
     if (client.phone && (client.phone.length != 11)) {
-      setErrors(lastErrors => [{ field: "phone", message: "Telefone deve ter 11 caracteres" }, ...lastErrors])
+      setErrors(lastErrors => [{ field: "phone", message: "Telefone deve ter 11 caracteres" }, ...lastErrors] as Error[])
     }
 
     const { data } = await createClient(client)

@@ -12,8 +12,9 @@ interface Client {
 interface Product {
   id: number
   name: string
+  description: string
   quantity: number
-  max_quantity: number
+  maxQuantity: number
   category: Category
   price: number
   um: string
@@ -26,4 +27,9 @@ interface Order {
   price: number
   client: Client
   products: Product[]
+}
+
+interface Error {
+  field: string
+  message: string
 }

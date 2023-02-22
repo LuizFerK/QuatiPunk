@@ -13,7 +13,7 @@ interface CounterProps {
   icon: IconType
   label?: string
   value: number
-  onChange?: (value: string) => void
+  onChange?: (value: number) => void
 }
 
 export default function Counter({ icon: Icon, label, value, onChange }: CounterProps) {
@@ -22,14 +22,33 @@ export default function Counter({ icon: Icon, label, value, onChange }: CounterP
     [styles.label]: true
   })
 
+  function handleInput(newValue: string) {
+    onChange && onChange(Number(newValue))
+  }
+
+  function handleMinus() {
+    if (onChange && value > 0) {
+      onChange(value - 1)
+    }
+  }
+
+  function handlePlus() {
+    onChange && onChange(value + 1)
+  }
+
   return (
     <div>
       {label && <label className={labelStyle}>{label}</label>}
       <div className={styles.container}>
         <Icon />
-        <Button icon={TbMinus} secondary />
-        <input className={poppins.className} value={value} />
-        <Button icon={TbPlus} secondary />
+        <Button type="button" icon={TbMinus} secondary onClick={handleMinus} />
+        <input
+          className={poppins.className}
+          value={value}
+          type="number"
+          onChange={e => handleInput(e.target.value)}
+        />
+        <Button type="button" icon={TbPlus} secondary onClick={handlePlus} />
       </div>
     </div>
   )

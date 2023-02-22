@@ -96,6 +96,7 @@ export default function Select({
           {options.map((option, idx) => (
             <li key={idx} className={optionStyle(option)}>
               <button
+                type="button"
                 className={poppins.className}
                 onClick={() => handleOnClick(option)}
               >

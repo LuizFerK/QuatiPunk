@@ -15,7 +15,7 @@ export default function Header() {
   const routeName = parsedRouteName.replace("/[id]", "")
 
   function handleCreate() {
-    push(parsedRouteName.replace('s', '').toLowerCase())
+    push("/" + routeName.replace('s', '').toLowerCase())
   }
 
   return (

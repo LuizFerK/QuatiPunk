@@ -3,7 +3,7 @@ import { Poppins } from '@next/font/google'
 import { useRouter } from 'next/router'
 import { useState, useEffect, FormEvent } from 'react'
 import { useAuth } from '../../hooks/useAuth'
-import { getProduct, updateProduct, deleteProduct } from '../../api/products'
+import { createProduct } from '../../api/products'
 import {
   TbCircleSquare,
   TbClipboard,
@@ -12,7 +12,6 @@ import {
   TbPackage,
   TbPackageOff,
   TbRuler,
-  TbTrash
 } from 'react-icons/tb'
 
 import Input from '../../components/input'
@@ -20,18 +19,15 @@ import Button from '../../components/button'
 import Counter from '../../components/counter'
 import Select from '../../components/select'
 import Category from '../../components/category'
-import Spinner from '../../components/spinner'
 
 import styles from '../../styles/pages/produto.module.css'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
 export default function ProductDetails() {
-  const { id } = useRouter().query
   const { push } = useRouter()
   const { token } = useAuth()
 
-  const [isLoading, setIsLoading] = useState(true)
   const [errors, setErrors] = useState<Error[]>([])
   const [isFilled, setIsFilled] = useState(false)
 
@@ -42,16 +38,6 @@ export default function ProductDetails() {
   } as Product)
   
   const categoryList: Category[] = ["electrical", "paints", "hardware", "connections", "cement", "finishes"]
-
-  useEffect(() => {
-    async function fetchProduct() {
-      const { data } = await getProduct(id as string)
-      setIsLoading(false)
-      setProduct(data)
-    }
-
-    id && fetchProduct()
-  }, [id])
 
   useEffect(() => {
     // validade formats
@@ -74,20 +60,9 @@ export default function ProductDetails() {
       setErrors(lastErrors => [{ field: "maxQuantity", message: "Estoque mínimo deve ser menor ou igual ao estoque" }, ...lastErrors] as Error[])
     }
 
-    await updateProduct(product.id, product)
-  }
-
-  async function handleDelete() {
-    await deleteProduct(product.id)
-    push('/produtos')
-  }
-
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (!product) {
-    return <></>
+    const { data } = await createProduct(product)
+    
+    push(`/produto/${data.id}`)
   }
 
   return (
@@ -171,7 +146,6 @@ export default function ProductDetails() {
           />
         </div>
         <div>
-          <Button icon={TbTrash} secondary onClick={handleDelete} />
           <Button disabled={!isFilled} icon={TbArrowRight} />
         </div>
       </form>
