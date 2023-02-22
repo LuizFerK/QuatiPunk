@@ -38,6 +38,15 @@ export default function Search({ placeholder, clients, categories, onChange }: S
     }
   }, [])
 
+  function handleSelectCategory(category: Category) {
+    if (category === opts.category) {
+      const {category, ...newOpts} = opts
+      setOpts(newOpts)
+    } else {
+      setOpts({...opts, category: category})
+    }
+  }
+
   function handleSearch() {
     onChange && onChange({...opts, default: false})
   }
@@ -63,11 +72,11 @@ export default function Search({ placeholder, clients, categories, onChange }: S
       {categories && (
         <div className={styles.categories}>
           {categoryList.map(category => (
-            <button key={category} type="button" onClick={() => setOpts({...opts, category: category})}>
+            <button key={category} type="button" onClick={() => handleSelectCategory(category)}>
               <Category
                 type={category}
                 selectable
-                selected={false}
+                selected={category === opts.category}
               />
             </button>
           ))}

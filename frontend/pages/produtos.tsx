@@ -10,7 +10,10 @@ import styles from '../styles/pages/produtos.module.css'
 
 export default function Produtos() {
   const [isLoading, setIsLoading] = useState(true)
+  const [search, setSearch] = useState<Search>({default: true} as Search)
+  
   const [products, setProducts] = useState<Product[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
 
   useEffect(() => {
     async function fetchProducts() {
@@ -21,6 +24,17 @@ export default function Produtos() {
 
     fetchProducts()
   }, [])
+
+  useEffect(() => {
+    setFilteredProducts(products)
+
+    if (!search.default) {
+      search.input && setFilteredProducts(allProducts => allProducts.filter(product => product.name.includes(search.input as string)))
+      search.category && setFilteredProducts(allProducts => allProducts.filter(product => product.category === search.category))
+      search.order === "asc" && setFilteredProducts(allProducts => [...allProducts].sort((a, b) => (a.name > b.name) ? 1 : -1))
+      search.order === "desc" && setFilteredProducts(allProducts => [...allProducts].sort((a, b) => (a.name > b.name) ? -1 : 1))
+    }
+  }, [products, search])
 
   if (isLoading) {
     return <Spinner />
@@ -38,9 +52,9 @@ export default function Produtos() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.container}>
-        <Search placeholder="Nome do produto..." categories />
+        <Search placeholder="Nome do produto..." categories onChange={opts => setSearch(opts)} />
         <ol>
-          {products.map(product => <Product key={product.id} product={product} />)}
+          {filteredProducts.map(product => <Product key={product.id} product={product} />)}
         </ol>
       </main>
     </>
