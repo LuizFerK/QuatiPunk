@@ -90,8 +90,9 @@ public class ProductsController {
       try {
         Product productToUpdate = productInDb.get();
         productToUpdate.setName(product.getName());
+        productToUpdate.setDescription(product.getDescription());
         productToUpdate.setQuantity(product.getQuantity());
-        productToUpdate.setMaxQuantity(product.getMaxQuantity());
+        productToUpdate.setMinQuantity(product.getMinQuantity());
         productToUpdate.setCategory(product.getCategory());
         productToUpdate.setPrice(product.getPrice());
         productToUpdate.setUm(product.getUm());

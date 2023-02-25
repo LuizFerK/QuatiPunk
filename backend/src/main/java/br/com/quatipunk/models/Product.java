@@ -15,6 +15,8 @@ public class Product {
   @Size(min = 1, max = 40, message = "O nome do produto deve ter no máximo 40 caracteres.")
   private String name;
 
+  private String description;
+
   @NotNull
   private String category;
 
@@ -25,7 +27,7 @@ public class Product {
   private Integer quantity;
 
   @NotNull
-  private Integer maxQuantity;
+  private Integer minQuantity;
 
   @NotNull
   private Float price;
@@ -44,6 +46,14 @@ public class Product {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getCategory() {
@@ -70,12 +80,12 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	public Integer getMaxQuantity() {
-		return maxQuantity;
+	public Integer getMinQuantity() {
+		return minQuantity;
 	}
 
-	public void setMaxQuantity(Integer maxQuantity) {
-		this.maxQuantity = maxQuantity;
+	public void setMinQuantity(Integer minQuantity) {
+		this.minQuantity = minQuantity;
 	}
 
 	public Float getPrice() {
