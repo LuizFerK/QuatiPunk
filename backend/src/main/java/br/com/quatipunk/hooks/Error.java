@@ -17,6 +17,14 @@ public class Error {
     return new Error(400, "Bad request");
   }
 
+  public static Error alreadyExists(String entity) {
+    return new Error(400, entity + " already exists");
+  }
+
+  public static Error forbidden() {
+    return new Error(403, "Forbidden");
+  }
+
   public Integer getStatus() {
 		return status;
 	}

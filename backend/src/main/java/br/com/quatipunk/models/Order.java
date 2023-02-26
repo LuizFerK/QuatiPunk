@@ -19,7 +19,7 @@ public class Order {
   private Date date;
 
   @NotNull
-  private Integer quantity;
+  private String payment;
 
   @NotNull
   private Float price;
@@ -39,7 +39,7 @@ public class Order {
 		Order newOrder = new Order();
 
 		newOrder.date = orderParams.getDate();
-		newOrder.quantity = orderParams.getQuantity();
+		newOrder.payment = orderParams.getPayment();
 		newOrder.price = orderParams.getPrice();
 
 		return newOrder;
@@ -61,12 +61,12 @@ public class Order {
 		this.date = date;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public String getPayment() {
+		return payment;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 
 	public Float getPrice() {

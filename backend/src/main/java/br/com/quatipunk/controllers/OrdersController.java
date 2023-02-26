@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -81,8 +80,8 @@ public class OrdersController {
   public Object create(@RequestBody OrderParams orderParams) {
     Order order = Order.paramsToOrder(orderParams);
 
-    if (orderParams.getClientId() != null) {
-      Optional<Client> client = clientRepository.findById(orderParams.getClientId());
+    if (orderParams.getClientCpf() != null) {
+      Optional<Client> client = clientRepository.findById(orderParams.getClientCpf());
 
       if (client.isPresent()) {
         order.setClient(client.get());
@@ -110,38 +109,6 @@ public class OrdersController {
       return new ResponseEntity<Order>(persistedOrder, HttpStatus.OK);
     } catch(Exception err) {
       return new ResponseEntity<Error>(Error.badRequest(), HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  /**
-   *
-   * @return update a order
-   */
-  @RequestMapping(value = "/orders/{id}", method = RequestMethod.PUT)
-  @PutMapping(
-    consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-    produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
-  )
-  public Object update(@RequestBody Order order, @PathVariable Integer id) {
-    Optional<Order> orderInDb = orderRepository.findById(id);
-
-    if (orderInDb.isPresent()) {
-      try {
-        Order orderToUpdate = orderInDb.get();
-        // orderToUpdate.setName(order.getName());
-        // orderToUpdate.setQuantity(order.getQuantity());
-        // orderToUpdate.setMaxQuantity(order.getMaxQuantity());
-        // orderToUpdate.setCategory(order.getCategory());
-        // orderToUpdate.setPrice(order.getPrice());
-        // orderToUpdate.setUm(order.getUm());
-
-        Order persistedOrder = orderRepository.save(orderToUpdate);
-        return new ResponseEntity<Order>(persistedOrder, HttpStatus.OK);
-      } catch(Exception err) {
-        return new ResponseEntity<Error>(Error.badRequest(), HttpStatus.BAD_REQUEST);
-      }
-    } else {
-      return new ResponseEntity<Error>(Error.notFound(), HttpStatus.NOT_FOUND);
     }
   }
 

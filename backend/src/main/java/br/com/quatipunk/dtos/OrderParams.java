@@ -5,15 +5,15 @@ import java.util.List;
 import br.com.quatipunk.models.Order;
 
 public class OrderParams extends Order {
-  private Integer clientId;
+  private String clientCpf;
   private List<Integer> productIds;
 
-  public Integer getClientId() {
-    return clientId;
+  public String getClientCpf() {
+    return clientCpf;
   }
 
-  public void setClientId(Integer clientId) {
-    this.clientId = clientId;
+  public void setClientCpf(String clientCpf) {
+    this.clientCpf = clientCpf;
   }
   
   public List<Integer> getProductIds() {

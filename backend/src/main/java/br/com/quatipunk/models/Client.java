@@ -13,8 +13,9 @@ import org.hibernate.validator.constraints.br.CPF;
 @Entity(name = "clients")
 public class Client {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @CPF(message = "Não é um CPF válido.")
+  @Column(unique = true)
+  private String cpf;
 
   @NotNull
   @Size(min = 1, max = 25, message = "O nome do cliente deve ter no máximo 25 caracteres.")
@@ -27,11 +28,6 @@ public class Client {
   private String phone;
 
   @NotNull
-  @CPF(message = "Não é um CPF válido.")
-  @Column(unique = true)
-  private String cpf;
-
-  @NotNull
   @Size(min = 3, max = 40, message = "O endereço do cliente deve ter no mínimo 3 e no máximo 40 caracteres.")
   private String address;
 
@@ -39,14 +35,6 @@ public class Client {
   @NotEmpty
   @Email(message = "Não é um endereço de E-mail válido.")
   private String mail;
-
-  public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

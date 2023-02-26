@@ -43,11 +43,11 @@ public class ClientsController {
 
   /**
    *
-   * @return get client by id
+   * @return get client by cpf
    */
-  @RequestMapping(value = "/clients/{id}", method = RequestMethod.GET)
-  public Object show(@PathVariable Integer id) {
-    Optional<Client> client = clientRepository.findById(id);
+  @RequestMapping(value = "/clients/{cpf}", method = RequestMethod.GET)
+  public Object show(@PathVariable String cpf) {
+    Optional<Client> client = clientRepository.findById(cpf);
 
     if (client.isPresent()) {
       return new ResponseEntity<Client>(client.get(), HttpStatus.OK);
@@ -66,6 +66,12 @@ public class ClientsController {
     produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
   )
   public Object create(@RequestBody Client client) {
+    Optional<Client> alreadyCreatedClient = clientRepository.findById(client.getCpf());
+
+    if (alreadyCreatedClient.isPresent()) {
+      return new ResponseEntity<Error>(Error.alreadyExists("Client with this CPF"), HttpStatus.BAD_REQUEST);
+    }
+
     try {
       Client persistedClient = clientRepository.save(client);
       return new ResponseEntity<Client>(persistedClient, HttpStatus.OK);
@@ -78,19 +84,18 @@ public class ClientsController {
    *
    * @return update a client
    */
-  @RequestMapping(value = "/clients/{id}", method = RequestMethod.PUT)
+  @RequestMapping(value = "/clients/{cpf}", method = RequestMethod.PUT)
   @PutMapping(
     consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
     produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
   )
-  public Object update(@RequestBody Client client, @PathVariable Integer id) {
-    Optional<Client> clientInDb = clientRepository.findById(id);
+  public Object update(@RequestBody Client client, @PathVariable String cpf) {
+    Optional<Client> clientInDb = clientRepository.findById(cpf);
 
     if (clientInDb.isPresent()) {
       try {
         Client clientToUpdate = clientInDb.get();
         clientToUpdate.setAddress(client.getAddress());
-        clientToUpdate.setCpf(client.getCpf());
         clientToUpdate.setMail(client.getMail());
         clientToUpdate.setName(client.getName());
         clientToUpdate.setPhone(client.getPhone());
@@ -107,11 +112,11 @@ public class ClientsController {
 
   /**
    *
-   * @return delete client by id
+   * @return delete client by cpf
    */
-  @RequestMapping(value = "/clients/{id}", method = RequestMethod.DELETE)
-  public Object delete(@PathVariable Integer id) {
-    Optional<Client> client = clientRepository.findById(id);
+  @RequestMapping(value = "/clients/{cpf}", method = RequestMethod.DELETE)
+  public Object delete(@PathVariable String cpf) {
+    Optional<Client> client = clientRepository.findById(cpf);
 
     if (client.isPresent()) {
       clientRepository.delete(client.get());
