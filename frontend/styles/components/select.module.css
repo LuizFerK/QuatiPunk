@@ -9,6 +9,11 @@
   z-index: 1;
 }
 
+.disabled {
+  cursor: default !important;
+  color: var(--color-gray);
+}
+
 .extended {
   height: max-content;
 }

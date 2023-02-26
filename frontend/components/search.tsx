@@ -66,6 +66,7 @@ export default function Search({ placeholder, clients, categories, onChange }: S
           options={clientList}
           onSelect={client => setOpts({...opts, client: client})}
           width={200}
+          nullable
           placeholder='Nome do cliente...'
         />
       )}

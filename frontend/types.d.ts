@@ -29,6 +29,14 @@ interface Order {
   products: Product[]
 }
 
+interface OrderCreate {
+  date: string
+  quantity: number
+  price: number
+  clientId: number | null
+  productIds: number[]
+}
+
 interface Error {
   field: string
   message: string

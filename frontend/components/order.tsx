@@ -27,14 +27,23 @@ export default function Order({ order }: OrderProps) {
               <TbCalendarTime />
               <p className={poppins.className}>{parseDate(order.date)}</p>
             </div>
-            <div>
-              <TbUser />
-              <p className={poppins.className}>{order.client.name}</p>
-            </div>
-            <div>
-              <TbPhone />
-              <p className={poppins.className}>{parsePhone(order.client.phone)}</p>
-            </div>
+            {order.client && order.client.id ? (
+              <>
+                <div>
+                  <TbUser />
+                  <p className={poppins.className}>{order.client.name}</p>
+                </div>
+                <div>
+                  <TbPhone />
+                  <p className={poppins.className}>{parsePhone(order.client.phone)}</p>
+                </div>
+              </>
+            ) : (
+              <div>
+                <TbUser />
+                <p className={poppins.className}>Anônimo</p>
+              </div>
+            )}
           </section>
           <section className={styles.values}>
             <div>

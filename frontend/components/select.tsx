@@ -23,6 +23,7 @@ interface SelectProps {
   placeholder?: string
   style?: CSSProperties
   disabled?: boolean
+  nullable?: boolean
 }
 
 export default function Select({
@@ -36,7 +37,8 @@ export default function Select({
   confirmButton,
   placeholder,
   style,
-  disabled
+  disabled,
+  nullable
 }: SelectProps) {
   const [placeholderStatus, setPlaceholderStatus] = useState(!!placeholder)
   const [isOpen, setIsOpen] = useState(false)
@@ -49,8 +51,8 @@ export default function Select({
   }
 
   function handleOnClick(option: any) {
-    !!placeholder && setPlaceholderStatus(false)
-    onSelect && onSelect(option)
+    !!placeholder && setPlaceholderStatus(!!nullable && option === value)
+    onSelect && onSelect(nullable && option === value ? "" : option)
     setIsOpen(false)
   }
 
@@ -63,6 +65,11 @@ export default function Select({
     [styles.container]: true,
     [styles.extended]: isOpen,
     [styles.width100]: width === "100%"
+  })
+  
+  const buttonStyle = classNames({
+    [styles.button]: true,
+    [styles.disabled]: disabled
   })
 
   const valueStyle = classNames({
@@ -83,7 +90,7 @@ export default function Select({
     <div style={style}>
       {label && <label className={labelStyle}>{label}</label>}
       <div className={selectStyle} ref={selectRef}>
-        <div className={styles.button} onClick={toggleOpen}>
+        <div className={buttonStyle} onClick={toggleOpen}>
           <Icon />
           <p
             className={valueStyle}
@@ -95,7 +102,7 @@ export default function Select({
           {confirmButton && <Button icon={TbArrowRight} />}
         </div>
         <ol>
-          {options.map((option, idx) => (
+          {["Anônimo", ...options].map((option, idx) => (
             <li key={idx} className={optionStyle(option)}>
               <button
                 type="button"

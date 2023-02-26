@@ -19,7 +19,13 @@ export default function Orders() {
     async function fetchOrders() {
       const { data } = await getOrders()
       setIsLoading(false)
-      setOrders(data)
+
+      const parsedData = data.map(order => {
+        if (order.client) return order
+        return {...order, client: { name: "Anônimo" }} as Order
+      })
+
+      setOrders(parsedData)
     }
 
     fetchOrders()
@@ -27,8 +33,6 @@ export default function Orders() {
 
   useEffect(() => {
     setFilteredOrders(orders)
-
-    console.log(search.client)
 
     if (!search.default) {
       search.input && setFilteredOrders(allOrders => allOrders.filter(order => String(order.id) === search.input))
