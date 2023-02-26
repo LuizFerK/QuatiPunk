@@ -10,7 +10,10 @@ import styles from '../styles/pages/vendas.module.css'
 
 export default function Orders() {
   const [isLoading, setIsLoading] = useState(true)
+  const [search, setSearch] = useState<Search>({default: true} as Search)
+  
   const [orders, setOrders] = useState<Order[]>([])
+  const [filteredOrders, setFilteredOrders] = useState<Order[]>([])
 
   useEffect(() => {
     async function fetchOrders() {
@@ -21,6 +24,20 @@ export default function Orders() {
 
     fetchOrders()
   }, [])
+
+  useEffect(() => {
+    setFilteredOrders(orders)
+
+    console.log(search.client)
+
+    if (!search.default) {
+      search.input && setFilteredOrders(allOrders => allOrders.filter(order => String(order.id) === search.input))
+      search.client && setFilteredOrders(allOrders => allOrders.filter(order => order.client.name === search.client))
+      search.category && setFilteredOrders(allOrders => allOrders.filter(order => order.products.some(product => product.category === search.category)))
+      search.order === "asc" && setFilteredOrders(allOrders => [...allOrders].sort((a, b) => (a.id > b.id) ? 1 : -1))
+      search.order === "desc" && setFilteredOrders(allOrders => [...allOrders].sort((a, b) => (a.id > b.id) ? -1 : 1))
+    }
+  }, [orders, search])
 
   if (isLoading) {
     return <Spinner />
@@ -38,13 +55,13 @@ export default function Orders() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.container}>
-        <Search placeholder="Código da venda..." clients categories />
+        <Search placeholder="Código da venda..." onChange={opts => setSearch(opts)} clients categories />
         <section className={styles.content}>
           <ol>
-            {orders.filter(order => order.id % 2 == 1).map(order => <Order key={order.id} order={order} />)}
+            {filteredOrders.filter(order => order.id % 2 == 1).map(order => <Order key={order.id} order={order} />)}
           </ol>
           <ol>
-            {orders.filter(order => order.id % 2 == 0).map(order => <Order key={order.id} order={order} />)}
+            {filteredOrders.filter(order => order.id % 2 == 0).map(order => <Order key={order.id} order={order} />)}
           </ol>
         </section>
       </main>

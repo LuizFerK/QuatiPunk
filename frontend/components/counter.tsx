@@ -13,10 +13,16 @@ interface CounterProps {
   icon: IconType
   label?: string
   value: number
+  noBackground?: boolean
   onChange?: (value: number) => void
 }
 
-export default function Counter({ icon: Icon, label, value, onChange }: CounterProps) {
+export default function Counter({ icon: Icon, label, value, noBackground, onChange }: CounterProps) {
+  const containerStyle = classNames({
+    [styles.container]: true,
+    [styles.noBackground]: noBackground
+  })
+
   const labelStyle = classNames({
     [poppins.className]: true,
     [styles.label]: true
@@ -39,7 +45,7 @@ export default function Counter({ icon: Icon, label, value, onChange }: CounterP
   return (
     <div>
       {label && <label className={labelStyle}>{label}</label>}
-      <div className={styles.container}>
+      <div className={containerStyle}>
         <Icon />
         <Button type="button" icon={TbMinus} secondary onClick={handleMinus} />
         <input

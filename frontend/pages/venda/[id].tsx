@@ -116,7 +116,7 @@ export default function OrderDetails() {
           style={{ zIndex: 1 }}
         />
         <ol>
-          {selectedProducts.length > 0 && selectedProducts.map(product => <Product key={product.id} product={product} small />)}
+          {selectedProducts.length > 0 && selectedProducts.map(product => <Product key={product.id} product={product} small counter />)}
         </ol>
         <Button disabled={!isFilled} icon={TbArrowRight} onClick={() => {}} />
       </main>

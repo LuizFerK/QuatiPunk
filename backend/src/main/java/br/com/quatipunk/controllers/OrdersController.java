@@ -79,7 +79,18 @@ public class OrdersController {
     produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
   )
   public Object create(@RequestBody OrderParams orderParams) {
-    Optional<Client> client = clientRepository.findById(orderParams.getClientId());
+    Order order = Order.paramsToOrder(orderParams);
+
+    if (orderParams.getClientId() != null) {
+      Optional<Client> client = clientRepository.findById(orderParams.getClientId());
+
+      if (client.isPresent()) {
+        order.setClient(client.get());
+      } else {
+        return new ResponseEntity<Error>(Error.notFound(), HttpStatus.NOT_FOUND);
+      }
+  
+    }
     Set<Product> products = new HashSet<Product>();
 
     for (Integer productId : orderParams.getProductIds()) {
@@ -91,16 +102,9 @@ public class OrdersController {
         return new ResponseEntity<Error>(Error.notFound(), HttpStatus.NOT_FOUND);
       }
     }
-
-    Order order = Order.paramsToOrder(orderParams);
+    
     order.setProducts(products);
     
-    if (client.isPresent()) {
-      order.setClient(client.get());
-    } else {
-      return new ResponseEntity<Error>(Error.notFound(), HttpStatus.NOT_FOUND);
-    }
-
     try {
       Order persistedOrder = orderRepository.save(order);
       return new ResponseEntity<Order>(persistedOrder, HttpStatus.OK);

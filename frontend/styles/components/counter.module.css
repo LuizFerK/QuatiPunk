@@ -34,3 +34,38 @@
   display: inline-block;
   margin-bottom: 12px;
 }
+
+.noBackground {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.noBackground input {
+  color: var(--color-white);
+}
+
+.noBackground button {
+  background: var(--color-white-light);
+}
+
+.noBackground button svg {
+  color: var(--color-white);
+}
+
+.noBackground > svg {
+  min-width: 24px;
+  min-height: 24px;
+  color: var(--color-white);
+  margin-right: 28px;
+}
+
+.noBackground input {
+  border: none;
+  background: none;
+  outline: none;
+  margin: 0 8px;
+  margin-top: 2px;
+  width: 24px;
+  text-align: center;
+}
