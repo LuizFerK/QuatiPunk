@@ -22,6 +22,7 @@ interface SelectProps {
   confirmButton?: boolean
   placeholder?: string
   style?: CSSProperties
+  disabled?: boolean
 }
 
 export default function Select({
@@ -34,7 +35,8 @@ export default function Select({
   width,
   confirmButton,
   placeholder,
-  style
+  style,
+  disabled
 }: SelectProps) {
   const [placeholderStatus, setPlaceholderStatus] = useState(!!placeholder)
   const [isOpen, setIsOpen] = useState(false)
@@ -43,7 +45,7 @@ export default function Select({
   useClickOutside(selectRef, () => setIsOpen(false))
 
   function toggleOpen() {
-    setIsOpen(!isOpen)
+    !disabled && setIsOpen(!isOpen)
   }
 
   function handleOnClick(option: any) {
@@ -89,7 +91,7 @@ export default function Select({
           >
             {placeholder && placeholderStatus ? placeholder : formatter(value)}
           </p>
-          <TbChevronDown className={chevronStyle} />
+          {!disabled ? <TbChevronDown className={chevronStyle} /> : <div style={{ marginRight: 20 }} />}
           {confirmButton && <Button icon={TbArrowRight} />}
         </div>
         <ol>

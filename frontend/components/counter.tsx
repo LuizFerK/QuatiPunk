@@ -14,10 +14,11 @@ interface CounterProps {
   label?: string
   value: number
   noBackground?: boolean
+  disabled?: boolean
   onChange?: (value: number) => void
 }
 
-export default function Counter({ icon: Icon, label, value, noBackground, onChange }: CounterProps) {
+export default function Counter({ icon: Icon, label, value, noBackground, disabled, onChange }: CounterProps) {
   const containerStyle = classNames({
     [styles.container]: true,
     [styles.noBackground]: noBackground
@@ -47,14 +48,14 @@ export default function Counter({ icon: Icon, label, value, noBackground, onChan
       {label && <label className={labelStyle}>{label}</label>}
       <div className={containerStyle}>
         <Icon />
-        <Button type="button" icon={TbMinus} secondary onClick={handleMinus} />
+        {!disabled && <Button type="button" icon={TbMinus} secondary onClick={handleMinus} />}
         <input
           className={poppins.className}
           value={value}
           type="number"
           onChange={e => handleInput(e.target.value)}
         />
-        <Button type="button" icon={TbPlus} secondary onClick={handlePlus} />
+        {!disabled ? <Button type="button" icon={TbPlus} secondary onClick={handlePlus} /> : <div style={{ marginRight: 20 }} />}
       </div>
     </div>
   )

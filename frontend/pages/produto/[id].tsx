@@ -37,7 +37,7 @@ export default function ProductDetails() {
 
   const [product, setProduct] = useState<Product>({
     quantity: 0,
-    maxQuantity: 0,
+    minQuantity: 0,
     um: "cm"
   } as Product)
   
@@ -70,8 +70,8 @@ export default function ProductDetails() {
     e.preventDefault()
     setErrors([])
 
-    if (product.quantity > product.maxQuantity) {
-      setErrors(lastErrors => [{ field: "maxQuantity", message: "Estoque mínimo deve ser menor ou igual ao estoque" }, ...lastErrors] as Error[])
+    if (product.quantity > product.minQuantity) {
+      setErrors(lastErrors => [{ field: "minQuantity", message: "Estoque mínimo deve ser menor ou igual ao estoque" }, ...lastErrors] as Error[])
     }
 
     await updateProduct(product.id, product)
@@ -113,6 +113,7 @@ export default function ProductDetails() {
           icon={TbCircleSquare}
           label="Nome:"
           placeholder="Lâmpada"
+          disabled={!token}
           value={product.name}
           onChange={e => setProduct({ ...product, name: e.target.value })}
         />
@@ -120,6 +121,7 @@ export default function ProductDetails() {
           icon={TbClipboard}
           label="Descrição:"
           placeholder="LED 20W"
+          disabled={!token}
           value={product.description}
           onChange={e => setProduct({ ...product, description: e.target.value })}
         />
@@ -128,6 +130,7 @@ export default function ProductDetails() {
           label="Preço:"
           placeholder="9,90"
           type="number"
+          disabled={!token}
           value={product.price}
           onChange={e => setProduct({ ...product, price: Number(e.target.value) })}
         />
@@ -136,10 +139,15 @@ export default function ProductDetails() {
             <label className={poppins.className}>Categoria:</label>
             <div className={styles.categories}>
               {categoryList.map(category => (
-                <button key={category} onClick={() => setProduct({ ...product, category: category })} type="button">
+                <button
+                  key={category}
+                  type="button"
+                  disabled={!token}
+                  onClick={() => setProduct({ ...product, category: category })}
+                >
                   <Category
                     type={category}
-                    selectable
+                    selectable={!!token}
                     selected={category === product.category}
                   />
                 </button>
@@ -152,6 +160,7 @@ export default function ProductDetails() {
               icon={TbRuler}
               value={product.um || "cm"}
               options={["cm", "m", "mm"]}
+              disabled={!token}
               onSelect={um => setProduct({ ...product, um: um })}
             />
           </div>
@@ -160,20 +169,22 @@ export default function ProductDetails() {
           <Counter
             icon={TbPackage}
             label="Estoque atual:"
+            disabled={!token}
             value={product.quantity}
             onChange={quantity => setProduct({ ...product, quantity: Number(quantity) })}
           />
           <Counter
             icon={TbPackageOff}
             label="Estoque mínimo:"
-            value={product.maxQuantity}
-            onChange={maxQuantity => setProduct({ ...product, maxQuantity: Number(maxQuantity) })}
+            disabled={!token}
+            value={product.minQuantity}
+            onChange={minQuantity => setProduct({ ...product, minQuantity: Number(minQuantity) })}
           />
         </div>
-        <div>
+        {token && <div>
           <Button icon={TbTrash} secondary onClick={handleDelete} />
           <Button disabled={!isFilled} icon={TbArrowRight} />
-        </div>
+        </div>}
       </form>
     </>
   )

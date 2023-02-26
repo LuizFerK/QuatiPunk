@@ -8,8 +8,12 @@ import Select from '../components/select'
 import Spinner from '../components/spinner'
 
 import styles from '../styles/pages/analises.module.css'
+import { useAuth } from '../hooks/useAuth'
+import NoAccess from '../components/noAccess'
 
 export default function Analytics() {
+  const { token } = useAuth()
+
   const [isLoading, setIsLoading] = useState(true)
   const [months, setMonths] = useState<string[]>([])
   const [selectedMonth, setSelectedMonth] = useState(() => {
@@ -24,8 +28,12 @@ export default function Analytics() {
       setMonths(data)
     }
 
-    fetchMonths()
+    token && fetchMonths()
   }, [])
+
+  if (!token) {
+    return <NoAccess />
+  }
 
   if (isLoading) {
     return <Spinner />

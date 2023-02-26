@@ -14,7 +14,7 @@ interface Product {
   name: string
   description: string
   quantity: number
-  maxQuantity: number
+  minQuantity: number
   category: Category
   price: number
   um: string

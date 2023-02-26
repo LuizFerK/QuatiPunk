@@ -17,6 +17,7 @@ import Input from '../../components/input'
 import Button from '../../components/button'
 
 import styles from '../../styles/pages/cliente.module.css'
+import NoAccess from '../../components/noAccess'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
@@ -59,6 +60,10 @@ export default function ClientDetails() {
     const { data } = await createClient(client)
     
     push(`/cliente/${data.id}`)
+  }
+
+  if (!token) {
+    return <NoAccess />
   }
 
   return (

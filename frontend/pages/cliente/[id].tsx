@@ -113,6 +113,7 @@ export default function ClientDetails() {
           icon={TbUser}
           label="Nome:"
           placeholder="John Doe"
+          disabled={!token}
           value={client.name}
           onChange={e => setClient({ ...client, name: e.target.value })}
         />
@@ -120,6 +121,7 @@ export default function ClientDetails() {
           icon={TbAddressBook}
           label="CPF:"
           placeholder="12345678900"
+          disabled={!token}
           value={client.cpf}
           onChange={e => setClient({ ...client, cpf: e.target.value })}
         />
@@ -128,6 +130,7 @@ export default function ClientDetails() {
           label="Telefone:"
           placeholder="(99) 99999-9999"
           type="number"
+          disabled={!token}
           value={client.phone}
           onChange={e => setClient({ ...client, phone: e.target.value })}
         />
@@ -135,6 +138,7 @@ export default function ClientDetails() {
           icon={TbMapPin}
           label="Endereço:"
           placeholder="Rua João Luiz, Apto 301"
+          disabled={!token}
           value={client.address}
           onChange={e => setClient({ ...client, address: e.target.value })}
         />
@@ -143,13 +147,16 @@ export default function ClientDetails() {
           label="Email:"
           placeholder="john@doe.com"
           type="email"
+          disabled={!token}
           value={client.mail}
           onChange={e => setClient({ ...client, mail: e.target.value })}
         />
-        <div>
-          <Button icon={TbTrash} secondary onClick={handleDelete} />
-          <Button disabled={!isFilled} icon={TbArrowRight} />
-        </div>
+        {token ? (
+          <div>
+            <Button icon={TbTrash} secondary onClick={handleDelete} />
+            <Button disabled={!isFilled} icon={TbArrowRight} />
+          </div>
+        ) : <div />}
       </form>
     </>
   )

@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 78%;
+}
+
+.container span {
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.logo {
+  background-color: var(--color-white);
+  box-shadow: var(--shadow);
+  min-width: 104px;
+  min-height: 104px;
+  transform: rotate(45deg);
+  border-radius: 35px;
+  margin-bottom: 40px;
+
+  display: grid;
+  place-items: center;
+}
+
+.logo svg {
+  transform: rotate(-45deg);
+  width: 36px;
+  height: 36px;
+  color: var(--color-primary);
+}

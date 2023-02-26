@@ -21,6 +21,7 @@ import Select from '../../components/select'
 import Category from '../../components/category'
 
 import styles from '../../styles/pages/produto.module.css'
+import NoAccess from '../../components/noAccess'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
@@ -33,7 +34,7 @@ export default function ProductDetails() {
 
   const [product, setProduct] = useState<Product>({
     quantity: 0,
-    maxQuantity: 0,
+    minQuantity: 0,
     um: "cm"
   } as Product)
   
@@ -56,13 +57,17 @@ export default function ProductDetails() {
     e.preventDefault()
     setErrors([])
 
-    if (product.quantity > product.maxQuantity) {
-      setErrors(lastErrors => [{ field: "maxQuantity", message: "Estoque mínimo deve ser menor ou igual ao estoque" }, ...lastErrors] as Error[])
+    if (product.quantity > product.minQuantity) {
+      setErrors(lastErrors => [{ field: "minQuantity", message: "Estoque mínimo deve ser menor ou igual ao estoque" }, ...lastErrors] as Error[])
     }
 
     const { data } = await createProduct(product)
     
     push(`/produto/${data.id}`)
+  }
+
+  if (!token) {
+    return <NoAccess />
   }
 
   return (
@@ -141,8 +146,8 @@ export default function ProductDetails() {
           <Counter
             icon={TbPackageOff}
             label="Estoque mínimo:"
-            value={product.maxQuantity}
-            onChange={maxQuantity => setProduct({ ...product, maxQuantity: Number(maxQuantity) })}
+            value={product.minQuantity}
+            onChange={minQuantity => setProduct({ ...product, minQuantity: Number(minQuantity) })}
           />
         </div>
         <div>
