@@ -29,7 +29,7 @@ export default function Produtos() {
     setFilteredProducts(products)
 
     if (!search.default) {
-      search.input && setFilteredProducts(allProducts => allProducts.filter(product => product.name.includes(search.input as string)))
+      search.input && setFilteredProducts(allProducts => allProducts.filter(product => product.name.toLowerCase().includes((search.input as string).toLowerCase())))
       search.category && setFilteredProducts(allProducts => allProducts.filter(product => product.category === search.category))
       search.order === "asc" && setFilteredProducts(allProducts => [...allProducts].sort((a, b) => (a.name > b.name) ? 1 : -1))
       search.order === "desc" && setFilteredProducts(allProducts => [...allProducts].sort((a, b) => (a.name > b.name) ? -1 : 1))

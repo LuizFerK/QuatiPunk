@@ -23,7 +23,7 @@ interface Product {
 interface Order {
   id: number
   date: string
-  quantity: number
+  payment: string
   price: number
   client: Client
   products: Product[]
@@ -31,9 +31,9 @@ interface Order {
 
 interface OrderCreate {
   date: string
-  quantity: number
+  payment: string
   price: number
-  clientId: number | null
+  clientCpf: string | null
   productIds: number[]
 }
 

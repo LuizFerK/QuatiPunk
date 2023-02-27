@@ -29,7 +29,7 @@ export default function Clients() {
     setFilteredClients(clients)
 
     if (!search.default) {
-      search.input && setFilteredClients(allClients => allClients.filter(client => client.name.includes(search.input as string)))
+      search.input && setFilteredClients(allClients => allClients.filter(client => client.name.toLowerCase().includes((search.input as string).toLowerCase())))
       search.order === "asc" && setFilteredClients(allClients => [...allClients].sort((a, b) => (a.name > b.name) ? 1 : -1))
       search.order === "desc" && setFilteredClients(allClients => [...allClients].sort((a, b) => (a.name > b.name) ? -1 : 1))
     }
@@ -53,7 +53,7 @@ export default function Clients() {
       <main className={styles.container}>
         <Search placeholder="Nome do cliente..." onChange={opts => setSearch(opts)} />
         <ol>
-          {filteredClients.map(client => <Client key={client.id} client={client} />)}
+          {filteredClients.map(client => <Client key={client.cpf} client={client} />)}
         </ol>
       </main>
     </>

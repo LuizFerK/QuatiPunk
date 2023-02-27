@@ -70,11 +70,11 @@ export default function ClientDetails() {
       setErrors(lastErrors => [{ field: "phone", message: "Telefone deve ter 11 caracteres" }, ...lastErrors] as Error[])
     }
 
-    await updateClient(client.id, client)
+    await updateClient(client.cpf, client)
   }
 
   async function handleDelete() {
-    await deleteClient(client.id)
+    await deleteClient(client.cpf)
     push('/clientes')
   }
 
@@ -121,7 +121,7 @@ export default function ClientDetails() {
           icon={TbAddressBook}
           label="CPF:"
           placeholder="12345678900"
-          disabled={!token}
+          disabled={true}
           value={client.cpf}
           onChange={e => setClient({ ...client, cpf: e.target.value })}
         />

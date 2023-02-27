@@ -15,10 +15,7 @@ interface ClientProps {
 export default function Client({ client }: ClientProps) {
   return (
     <li className={styles.li}>
-      <Link href={`/cliente/${client.id}`}>
-        <aside className={styles.aside}>
-          <span className={poppins.className}>{client.id}</span>
-        </aside>
+      <Link href={`/cliente/${client.cpf}`}>
         <div className={styles.content}>
           <section>
             <div className={styles.pseudoImg}>

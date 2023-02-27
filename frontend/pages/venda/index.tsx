@@ -76,8 +76,8 @@ export default function OrderDetails() {
     
     const order: OrderCreate = {
       date: new Date(Date.now()).toISOString(),
-      quantity: selectedProducts.length,
-      clientId: client.id || null,
+      payment: selectedProducts.length,
+      clientCpf: client.cpf || null,
       price: selectedProducts.reduce((price, product) => price + product.price, 0),
       productIds: selectedProducts.map(product => product.id),
     }

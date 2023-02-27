@@ -59,7 +59,7 @@ export default function ClientDetails() {
 
     const { data } = await createClient(client)
     
-    push(`/cliente/${data.id}`)
+    push(`/cliente/${data.cpf}`)
   }
 
   if (!token) {

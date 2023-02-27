@@ -102,7 +102,7 @@ export default function Select({
           {confirmButton && <Button icon={TbArrowRight} />}
         </div>
         <ol>
-          {["Anônimo", ...options].map((option, idx) => (
+          {options.map((option, idx) => (
             <li key={idx} className={optionStyle(option)}>
               <button
                 type="button"

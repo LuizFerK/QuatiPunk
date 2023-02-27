@@ -63,7 +63,7 @@ export default function Search({ placeholder, clients, categories, onChange }: S
         <Select
           icon={TbUser}
           value={opts.client}
-          options={clientList}
+          options={["Anônimo", ...clientList]}
           onSelect={client => setOpts({...opts, client: client})}
           width={200}
           nullable
@@ -87,14 +87,14 @@ export default function Search({ placeholder, clients, categories, onChange }: S
         <Button
           icon={TbSortDescending}
           secondary
-          active={opts.order === "desc"}
-          onClick={() => setOpts({...opts, order: "desc"})}
+          active={opts.order === "asc"}
+          onClick={() => setOpts({...opts, order: "asc"})}
         />
         <Button
           icon={TbSortAscending}
           secondary
-          active={opts.order === "asc"}
-          onClick={() => setOpts({...opts, order: "asc"})}
+          active={opts.order === "desc"}
+          onClick={() => setOpts({...opts, order: "desc"})}
         />
         <Button icon={TbArrowRight} onClick={handleSearch} />
       </div>

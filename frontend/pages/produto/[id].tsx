@@ -70,7 +70,7 @@ export default function ProductDetails() {
     e.preventDefault()
     setErrors([])
 
-    if (product.quantity > product.minQuantity) {
+    if (product.quantity < product.minQuantity) {
       setErrors(lastErrors => [{ field: "minQuantity", message: "Estoque mínimo deve ser menor ou igual ao estoque" }, ...lastErrors] as Error[])
     }
 
@@ -120,7 +120,7 @@ export default function ProductDetails() {
         <Input
           icon={TbClipboard}
           label="Descrição:"
-          placeholder="LED 20W"
+          placeholder="Descrição..."
           disabled={!token}
           value={product.description}
           onChange={e => setProduct({ ...product, description: e.target.value })}
