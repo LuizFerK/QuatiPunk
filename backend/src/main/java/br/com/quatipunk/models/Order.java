@@ -1,13 +1,15 @@
 package br.com.quatipunk.models;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 
-import br.com.quatipunk.dtos.OrderParams;
+import br.com.quatipunk.dtos.OrderParamsDTO;
+import br.com.quatipunk.dtos.OrderProductDTO;
 
 @Entity(name = "orders")
 public class Order {
@@ -25,17 +27,13 @@ public class Order {
   private Float price;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "clientId")
+	@JoinColumn(name = "clientCpf")
 	private Client client;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(
-		name = "order_products", 
-		joinColumns = @JoinColumn(name = "orderId"), 
-		inverseJoinColumns = @JoinColumn(name = "productId"))
-	Set<Product> products;
+	@OneToMany(mappedBy = "order")
+	Set<OrderProduct> products  = new HashSet<>();
 
-	public static Order paramsToOrder(OrderParams orderParams) {
+	public static Order paramsToOrder(OrderParamsDTO orderParams) {
 		Order newOrder = new Order();
 
 		newOrder.date = orderParams.getDate();
@@ -85,11 +83,14 @@ public class Order {
 		this.client = client;
 	}
 
-	public Set<Product> getProducts() {
-		return products;
+	public Set<OrderProductDTO> getProducts() {
+		Set<OrderProductDTO> productsDtos = new HashSet<OrderProductDTO>();
+		products.forEach(op -> productsDtos.add(new OrderProductDTO(op.getProduct(), op.getQuantity())));
+
+		return productsDtos;
 	}
 
-	public void setProducts(Set<Product> products) {
+	public void setProducts(Set<OrderProduct> products) {
 		this.products = products;
 	}
 }

@@ -18,14 +18,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.quatipunk.dtos.OrderParams;
+import br.com.quatipunk.dtos.OrderParamsDTO;
+import br.com.quatipunk.dtos.OrderProductDTO;
+import br.com.quatipunk.dtos.OrderProductParamsDTO;
 import br.com.quatipunk.hooks.Error;
 import br.com.quatipunk.models.Client;
 import br.com.quatipunk.models.Order;
+import br.com.quatipunk.models.OrderProduct;
 import br.com.quatipunk.models.Product;
 import br.com.quatipunk.repositories.ClientRepository;
 import br.com.quatipunk.repositories.OrderRepository;
 import br.com.quatipunk.repositories.ProductRepository;
+import br.com.quatipunk.repositories.OrderProductRepository;
 
 /**
  *
@@ -42,6 +46,9 @@ public class OrdersController {
   
   @Autowired
 	ProductRepository productRepository;
+  
+  @Autowired
+	OrderProductRepository orderProductRepository;
 
   /**
    *
@@ -77,7 +84,7 @@ public class OrdersController {
     consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
     produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
   )
-  public Object create(@RequestBody OrderParams orderParams) {
+  public Object create(@RequestBody OrderParamsDTO orderParams) {
     Order order = Order.paramsToOrder(orderParams);
 
     if (orderParams.getClientCpf() != null) {
@@ -90,24 +97,32 @@ public class OrdersController {
       }
   
     }
-    Set<Product> products = new HashSet<Product>();
-
-    for (Integer productId : orderParams.getProductIds()) {
-      Optional<Product> product = productRepository.findById(productId);
-
-      if (product.isPresent()) {
-        products.add(product.get());
-      } else {
-        return new ResponseEntity<Error>(Error.notFound(), HttpStatus.NOT_FOUND);
-      }
-    }
-    
-    order.setProducts(products);
     
     try {
       Order persistedOrder = orderRepository.save(order);
-      return new ResponseEntity<Order>(persistedOrder, HttpStatus.OK);
+      Set<OrderProduct> products = new HashSet<OrderProduct>();
+
+      for (OrderProductParamsDTO opDto : orderParams.getProductsDTO()) {
+        Optional<Product> product = productRepository.findById(opDto.getProductId());
+
+        if (product.isPresent()) {
+          OrderProduct op = new OrderProduct();
+          op.setOrder(persistedOrder);
+          op.setProduct(product.get());
+          op.setQuantity(opDto.getQuantity());
+
+          orderProductRepository.save(op);
+          products.add(op);
+        } else {
+          return new ResponseEntity<Error>(Error.notFound(), HttpStatus.NOT_FOUND);
+        }
+      }
+
+      persistedOrder.setProducts(products);
+      Order rePersistedOrder = orderRepository.save(persistedOrder);
+      return new ResponseEntity<Order>(rePersistedOrder, HttpStatus.OK);
     } catch(Exception err) {
+      System.out.println(err);
       return new ResponseEntity<Error>(Error.badRequest(), HttpStatus.BAD_REQUEST);
     }
   }

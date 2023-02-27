@@ -4,9 +4,9 @@ import java.util.List;
 
 import br.com.quatipunk.models.Order;
 
-public class OrderParams extends Order {
+public class OrderParamsDTO extends Order {
   private String clientCpf;
-  private List<Integer> productIds;
+  private List<OrderProductParamsDTO> products;
 
   public String getClientCpf() {
     return clientCpf;
@@ -16,11 +16,11 @@ public class OrderParams extends Order {
     this.clientCpf = clientCpf;
   }
   
-  public List<Integer> getProductIds() {
-    return productIds;
+  public List<OrderProductParamsDTO> getProductsDTO() {
+    return products;
   }
 
-  public void setProductIds(List<Integer> productIds) {
-    this.productIds = productIds;
+  public void setProducts(List<OrderProductParamsDTO> products) {
+    this.products = products;
   }
 }
