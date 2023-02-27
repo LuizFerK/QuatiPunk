@@ -11,7 +11,7 @@ interface Status {
 
 interface AuthContextData {
   token: string | null
-  signIn(password: string): Promise<Status>
+  signIn(name: string, password: string): Promise<Status>
   signOut(): void
 }
 
@@ -20,9 +20,9 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 export function AuthProvider({ children }: AuthProviderProps) {
   const [token, setToken] = useState<string | null>(null)
 
-  const signIn = useCallback(async (password: string): Promise<Status> => {
-    // const response = await api.post('sessions', { password })
-    const response = password == "admin" ? { data: { token: "aisudhasioudh" }, status: 200 } : { data: undefined, status: 500 }
+  const signIn = useCallback(async (name: string, password: string): Promise<Status> => {
+    // const response = await api.post('users/login', { name, password })
+    const response = name === "admin" && password === "admin" ? { data: { token: "token_example" }, status: 200 } : { data: undefined, status: 500 }
 
     if (response.status != 200) {
       return { status: "error" }
