@@ -27,7 +27,7 @@ export default function Order({ order }: OrderProps) {
               <TbCalendarTime />
               <p className={poppins.className}>{parseDate(order.date)}</p>
             </div>
-            {order.client && order.client.id ? (
+            {order.client && order.client.cpf ? (
               <>
                 <div>
                   <TbUser />
@@ -48,7 +48,7 @@ export default function Order({ order }: OrderProps) {
           <section className={styles.values}>
             <div>
               <TbCircleSquare />
-              <p className={poppins.className}>{order.quantity}</p>
+              <p className={poppins.className}>{order.products.length}</p>
             </div>
             <div>
               <span className={poppins.className}>R$</span>
@@ -58,7 +58,17 @@ export default function Order({ order }: OrderProps) {
         </header>
       </Link>
       <ol>
-        {order.products.map(product => <Product key={product.id} product={product} small />)}
+        {order.products.map(product => (
+          <Product
+            key={product.product.id}
+            product={product.product}
+            counterValue={product.quantity}
+            small
+            counter
+            disabled
+            forceHover
+          />
+        ))}
       </ol>
     </li>
   )

@@ -16,6 +16,11 @@ interface ProductProps {
   product: Product
   small?: boolean
   counter?: boolean
+  disabled?: boolean
+  counterValue?: number
+  forceHover?: boolean
+  onChangeCounter?: (value: number) => void
+  onRemoveProduct?: () => void
 }
 
 interface LinkWrapperProps extends LinkProps {
@@ -38,16 +43,25 @@ function LinkWrapper({ disabled, href, children, ...props }: LinkWrapperProps) {
   );
 };
 
-export default function Product({ product, small, counter }: ProductProps) {
+export default function Product({
+  product,
+  small,
+  counter,
+  disabled,
+  counterValue,
+  forceHover,
+  onChangeCounter,
+  onRemoveProduct
+}: ProductProps) {
   const productStyle = classNames({
     [styles.li]: true,
     [styles.small]: small,
-    [styles.counter]: counter
+    [styles.counter]: counter && !forceHover
   })
 
   return (
     <li className={productStyle}>
-      <LinkWrapper href={`/produto/${product.id}`} disabled={!!counter}>
+      <LinkWrapper href={`/produto/${product.id}`} disabled={!!counter && !forceHover}>
         {!small && (
           <aside className={styles.aside}>
             <span className={poppins.className}>{product.id}</span>
@@ -60,21 +74,36 @@ export default function Product({ product, small, counter }: ProductProps) {
             </div>
             <p className={poppins.className}>{product.name}</p>
           </section>
-          {!counter ? (
-            <section className={styles.infos}>
-              <div>
-                <TbBox />
-                <p className={poppins.className}>{product.quantity}</p>
-              </div>
-              <Category type={product.category} />
-              <div>
-                <span className={poppins.className}>R$</span>
-                <span className={poppins.className}>{product.price}</span>
-              </div>
-            </section>
-          ) : (
-            <Counter icon={TbBox} value={0} noBackground />
-          )}
+          <section className={styles.infos}>
+            {!counter ? (
+              <>
+                <div>
+                  <TbBox />
+                  <p className={poppins.className}>{product.quantity}</p>
+                </div>
+                <Category type={product.category} />
+                <div>
+                  <span className={poppins.className}>R$</span>
+                  <span className={poppins.className}>{product.price}</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <Counter
+                  icon={TbBox}
+                  value={counterValue || 0}
+                  onChange={onChangeCounter}
+                  disabled={disabled}
+                  removable
+                  onRemove={onRemoveProduct}
+                  noBackground
+                />
+                {forceHover && (
+                  <Category type={product.category} selected />
+                )}
+              </>
+            )}
+          </section>
         </div>
       </LinkWrapper>
     </li>

@@ -76,6 +76,10 @@
   color: var(--color-white);
 }
 
+.white svg {
+  color: var(--color-white);
+}
+
 .selected:hover {
   background-color: var(--color-primary-light);
 }

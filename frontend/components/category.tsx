@@ -30,7 +30,8 @@ export default function Category({ type, selectable, selected }: CategoryProps) 
     [styles.container]: true,
     [styles[type]]: true,
     [styles.selectable]: selectable,
-    [styles.selected]: selected
+    [styles.selected]: selectable && selected,
+    [styles.white]: selected
   })
 
   return (

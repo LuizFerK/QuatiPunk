@@ -22,13 +22,23 @@ interface Product {
   um: string
 }
 
+interface OrderProduct {
+  quantity: number
+  product: Product
+}
+
 interface Order {
   id: number
   date: string
   payment: Payment
   price: number
   client: Client
-  products: Product[]
+  products: OrderProduct[]
+}
+
+interface OrderProductCreate {
+  quantity: number
+  productId: number
 }
 
 interface OrderCreate {
@@ -36,7 +46,7 @@ interface OrderCreate {
   payment: Payment
   price: number
   clientCpf: string | null
-  productIds: number[]
+  products: OrderProductCreate[]
 }
 
 interface Error {

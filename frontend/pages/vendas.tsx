@@ -37,7 +37,7 @@ export default function Orders() {
     if (!search.default) {
       search.input && setFilteredOrders(allOrders => allOrders.filter(order => String(order.id) === search.input))
       search.client && setFilteredOrders(allOrders => allOrders.filter(order => order.client.name === search.client))
-      search.category && setFilteredOrders(allOrders => allOrders.filter(order => order.products.some(product => product.category === search.category)))
+      search.category && setFilteredOrders(allOrders => allOrders.filter(order => order.products.some(product => product.product.category === search.category)))
       search.order === "asc" && setFilteredOrders(allOrders => [...allOrders].sort((a, b) => (a.id > b.id) ? 1 : -1))
       search.order === "desc" && setFilteredOrders(allOrders => [...allOrders].sort((a, b) => (a.id > b.id) ? -1 : 1))
     }

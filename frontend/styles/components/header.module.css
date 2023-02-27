@@ -24,7 +24,7 @@
   left: 8px;
 }
 
-.header button:last-of-type {
+.header button:nth-of-type(2) {
   position: absolute;
   right: 8px;
 }

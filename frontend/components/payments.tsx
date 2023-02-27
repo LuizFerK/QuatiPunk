@@ -18,11 +18,12 @@ export default function Payments({value, disabled, onChange }: PaymentsProps) {
 
   const labelStyle = classNames({
     [poppins.className]: true,
-    [styles.label]: true
+    [styles.label]: true,
+    [styles.disabled]: disabled
   })
 
   function handleSelect(payment: Payment) {
-    onChange && onChange(payment)
+    !disabled && onChange && onChange(payment)
   }
 
   return (

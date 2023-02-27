@@ -35,7 +35,7 @@ export default function OrderDetails() {
 
   const [payment, setPayment] = useState<Payment>("card")
   const [client, setClient] = useState<Client>({ name: "Anônimo" } as Client)
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
+  const [selectedProducts, setSelectedProducts] = useState<OrderProduct[]>([])
 
   const [order, setOrder] = useState<Order>({} as Order)
 
@@ -110,14 +110,23 @@ export default function OrderDetails() {
           placeholder={`${selectedProducts.length} produtos selecionados`}
           options={products}
           formatter={product => product.name}
-          onSelect={product => setSelectedProducts([...selectedProducts, product])}
+          onSelect={product => setSelectedProducts([...selectedProducts, { product: product, quantity: 1 }])}
           width="100%"
           style={{ zIndex: 1 }}
         />
         <ol>
-          {selectedProducts.length > 0 && selectedProducts.map(product => <Product key={product.id} product={product} small />)}
+          {selectedProducts.length > 0 && selectedProducts.map(product => (
+            <Product
+              key={product.product.id}
+              product={product.product}
+              counterValue={product.quantity}
+              disabled
+              small
+              counter
+            />
+          ))}
         </ol>
-        <Payments value={payment} onChange={payment => setPayment(payment)}  />
+        <Payments value={payment} onChange={payment => setPayment(payment)} disabled  />
         {token && <Button icon={TbTrash} secondary onClick={handleDelete} />}
       </main>
     </>

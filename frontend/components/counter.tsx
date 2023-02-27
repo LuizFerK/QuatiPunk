@@ -1,5 +1,5 @@
 import { Poppins } from '@next/font/google'
-import { TbMinus, TbPlus } from 'react-icons/tb'
+import { TbMinus, TbPlus, TbTrash } from 'react-icons/tb'
 import { IconType } from 'react-icons'
 import classNames from 'classnames'
 
@@ -15,13 +15,16 @@ interface CounterProps {
   value: number
   noBackground?: boolean
   disabled?: boolean
+  removable?: boolean
+  onRemove?: () => void
   onChange?: (value: number) => void
 }
 
-export default function Counter({ icon: Icon, label, value, noBackground, disabled, onChange }: CounterProps) {
+export default function Counter({ icon: Icon, label, value, noBackground, disabled, removable, onRemove, onChange }: CounterProps) {
   const containerStyle = classNames({
     [styles.container]: true,
-    [styles.noBackground]: noBackground
+    [styles.noBackground]: noBackground,
+    [styles.disabled]: disabled
   })
 
   const labelStyle = classNames({
@@ -34,8 +37,12 @@ export default function Counter({ icon: Icon, label, value, noBackground, disabl
   }
 
   function handleMinus() {
+    if (removable && onRemove && value === 1) {
+      return onRemove()
+    }
+
     if (onChange && value > 0) {
-      onChange(value - 1)
+      return onChange(value - 1)
     }
   }
 
@@ -48,14 +55,15 @@ export default function Counter({ icon: Icon, label, value, noBackground, disabl
       {label && <label className={labelStyle}>{label}</label>}
       <div className={containerStyle}>
         <Icon />
-        {!disabled && <Button type="button" icon={TbMinus} secondary onClick={handleMinus} />}
+        {!disabled && <Button type="button" icon={removable && value === 1 ? TbTrash : TbMinus} secondary onClick={handleMinus} />}
         <input
           className={poppins.className}
+          disabled={disabled}
           value={value}
           type="number"
           onChange={e => handleInput(e.target.value)}
         />
-        {!disabled ? <Button type="button" icon={TbPlus} secondary onClick={handlePlus} /> : <div style={{ marginRight: 20 }} />}
+        {!disabled ? <Button type="button" icon={TbPlus} secondary onClick={handlePlus} /> : <div />}
       </div>
     </div>
   )

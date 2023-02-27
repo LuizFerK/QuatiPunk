@@ -12,17 +12,28 @@ export default function Header() {
   const { route, back, push } = useRouter()
 
   const parsedRouteName = route.slice(1, 2).toUpperCase() + route.slice(2)
-  const routeName = parsedRouteName.replace("/[id]", "")
+  const routeName = () => {
+    const name = parsedRouteName.replace("/[id]", "")
+    
+    if (name === "Analises") return "Análises"
+    return name
+  }
+
+  function renderCreateButton() {
+    if (routeName() === "Análises") return false
+    if (routeName() === "Admin") return false
+    return true
+  }
 
   function handleCreate() {
-    push("/" + routeName.replace('s', '').toLowerCase())
+    push("/" + routeName().replace('s', '').toLowerCase())
   }
 
   return (
     <header className={styles.header}>
       <Button icon={TbArrowLeft} secondary onClick={back} />
-      <h1 className={poppins.className}>{routeName}</h1>
-      <Button icon={TbPlus} onClick={handleCreate} />
+      <h1 className={poppins.className}>{routeName()}</h1>
+      {renderCreateButton() && <Button icon={TbPlus} onClick={handleCreate} />}
     </header>
   )
 }

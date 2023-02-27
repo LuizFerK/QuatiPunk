@@ -37,7 +37,7 @@ export default function OrderDetails() {
 
   const [payment, setPayment] = useState<Payment>("card")
   const [client, setClient] = useState<Client>({ name: "Anônimo" } as Client)
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
+  const [selectedProducts, setSelectedProducts] = useState<OrderProduct[]>([])
 
   useEffect(() => {
     async function fetchOrder() {
@@ -80,12 +80,27 @@ export default function OrderDetails() {
       date: new Date(Date.now()).toISOString(),
       payment: payment,
       clientCpf: client.cpf || null,
-      price: selectedProducts.reduce((price, product) => price + product.price, 0),
-      productIds: selectedProducts.map(product => product.id),
+      price: selectedProducts.reduce((price, product) => price + product.product.price, 0),
+      products: selectedProducts.map(product => ({ productId: product.product.id, quantity: product.quantity })),
     }
 
     const { data } = await createOrder(order)
     push(`/venda/${data.id}`)
+  }
+
+  function handleChangeProductCounter({ product }: OrderProduct, quantity: number) {
+    const updatedSelectedProducts = selectedProducts.map(orderProduct => {
+      if (orderProduct.product.id !== product.id) return orderProduct
+
+      return { product, quantity }
+    })
+
+    setSelectedProducts(updatedSelectedProducts)
+  }
+
+  function handleRemoveProduct({ product }: OrderProduct) {
+    const filteredSelectedProducts = selectedProducts.filter(orderProduct => orderProduct.product.id !== product.id)
+    setSelectedProducts(filteredSelectedProducts)
   }
 
   if (!token) {
@@ -127,14 +142,24 @@ export default function OrderDetails() {
           label="Produtos:"
           value={{ name: "Selecionar os produtos da venda..." }}
           placeholder="Selecionar os produtos da venda..."
-          options={products}
+          options={products.filter(product => !selectedProducts.some(op => op.product.id === product.id))}
           formatter={product => product.name}
-          onSelect={product => setSelectedProducts([...selectedProducts, product])}
+          onSelect={product => setSelectedProducts([...selectedProducts, { product: product, quantity: 1 }])}
           width="100%"
           style={{ zIndex: 1 }}
         />
         <ol>
-          {selectedProducts.length > 0 && selectedProducts.map(product => <Product key={product.id} product={product} small />)}
+        {selectedProducts.length > 0 && selectedProducts.map(product => (
+            <Product
+              key={product.product.id}
+              product={product.product}
+              counterValue={product.quantity}
+              onChangeCounter={quantity => handleChangeProductCounter(product, quantity)}
+              onRemoveProduct={() => handleRemoveProduct(product)}
+              small
+              counter
+            />
+          ))}
         </ol>
         <Payments value={payment} onChange={payment => setPayment(payment)}  />
         <Button disabled={!isFilled} icon={TbArrowRight} />
