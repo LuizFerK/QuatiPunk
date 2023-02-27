@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  background-color: var(--color-white);
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 9px;
+  
+  height: 58px;
+
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.container > button {
+  border: none;
+}
+
+.container > button + button {
+  margin-left: 9px;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 12px;
+}

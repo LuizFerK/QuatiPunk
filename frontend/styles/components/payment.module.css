@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 40px;
+  height: 40px;
+
+  border-radius: 6px;
+}
+
+.container svg {
+  min-width: 20px;
+  min-height: 20px;
+  color: var(--color-gray);
+  margin: 0;
+}
+
+.selectable:hover svg {
+  color: var(--color-primary);
+}
+
+.selected {
+  background-color: var(--color-primary);
+}
+
+.selected svg {
+  color: var(--color-white);
+}
+
+.selected:hover {
+  background-color: var(--color-primary-light);
+}
+
+.selected:hover svg {
+  color: var(--color-primary);
+}

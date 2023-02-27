@@ -20,6 +20,7 @@ import Spinner from '../../components/spinner'
 import styles from '../../styles/pages/venda.module.css'
 import Product from '../../components/product'
 import NoAccess from '../../components/noAccess'
+import Payments from '../../components/payments'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
@@ -34,6 +35,7 @@ export default function OrderDetails() {
   const [clients, setClients] = useState<Client[]>([])
   const [products, setProducts] = useState<Product[]>([])
 
+  const [payment, setPayment] = useState<Payment>("card")
   const [client, setClient] = useState<Client>({ name: "Anônimo" } as Client)
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
 
@@ -76,7 +78,7 @@ export default function OrderDetails() {
     
     const order: OrderCreate = {
       date: new Date(Date.now()).toISOString(),
-      payment: selectedProducts.length,
+      payment: payment,
       clientCpf: client.cpf || null,
       price: selectedProducts.reduce((price, product) => price + product.price, 0),
       productIds: selectedProducts.map(product => product.id),
@@ -134,6 +136,7 @@ export default function OrderDetails() {
         <ol>
           {selectedProducts.length > 0 && selectedProducts.map(product => <Product key={product.id} product={product} small />)}
         </ol>
+        <Payments value={payment} onChange={payment => setPayment(payment)}  />
         <Button disabled={!isFilled} icon={TbArrowRight} />
       </form>
     </>

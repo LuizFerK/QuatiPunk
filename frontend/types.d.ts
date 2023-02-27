@@ -1,5 +1,7 @@
 type Category = "electrical" | "paints" | "hardware" | "connections" | "cement" | "finishes"
 
+type Payment = "card" | "cash" | "pix"
+
 interface Client {
   id: number
   name: string
@@ -23,7 +25,7 @@ interface Product {
 interface Order {
   id: number
   date: string
-  payment: string
+  payment: Payment
   price: number
   client: Client
   products: Product[]
@@ -31,7 +33,7 @@ interface Order {
 
 interface OrderCreate {
   date: string
-  payment: string
+  payment: Payment
   price: number
   clientCpf: string | null
   productIds: number[]

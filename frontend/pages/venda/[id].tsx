@@ -19,6 +19,7 @@ import Spinner from '../../components/spinner'
 
 import styles from '../../styles/pages/venda.module.css'
 import Product from '../../components/product'
+import Payments from '../../components/payments'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
@@ -32,6 +33,7 @@ export default function OrderDetails() {
   const [clients, setClients] = useState<Client[]>([])
   const [products, setProducts] = useState<Product[]>([])
 
+  const [payment, setPayment] = useState<Payment>("card")
   const [client, setClient] = useState<Client>({ name: "Anônimo" } as Client)
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
 
@@ -42,6 +44,7 @@ export default function OrderDetails() {
       const { data } = await getOrder(id as string)
       setIsLoading(false)
       setOrder(data)
+      setPayment(data.payment)
       setClient(data.client || { name: "Anônimo" } as Client)
       setSelectedProducts(data.products)
     }
@@ -114,6 +117,7 @@ export default function OrderDetails() {
         <ol>
           {selectedProducts.length > 0 && selectedProducts.map(product => <Product key={product.id} product={product} small />)}
         </ol>
+        <Payments value={payment} onChange={payment => setPayment(payment)}  />
         {token && <Button icon={TbTrash} secondary onClick={handleDelete} />}
       </main>
     </>
