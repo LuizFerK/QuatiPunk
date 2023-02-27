@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.quatipunk.dtos.OrderParamsDTO;
-import br.com.quatipunk.dtos.OrderProductDTO;
 import br.com.quatipunk.dtos.OrderProductParamsDTO;
 import br.com.quatipunk.hooks.Error;
 import br.com.quatipunk.models.Client;
@@ -95,7 +94,6 @@ public class OrdersController {
       } else {
         return new ResponseEntity<Error>(Error.notFound(), HttpStatus.NOT_FOUND);
       }
-  
     }
     
     try {
