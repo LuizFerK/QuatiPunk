@@ -78,8 +78,15 @@ export default function ProductDetails() {
   }
 
   async function handleDelete() {
-    await deleteProduct(product.id)
-    push('/produtos')
+    try {
+      await deleteProduct(product.id)
+      push('/produtos')
+    } catch {
+      setErrors(lastErrors => [
+        {message: "Não foi possível deletar o produto pois existe uma ou mais vendas atreladas a ele" },
+        ...lastErrors
+      ] as Error[])
+    }
   }
 
   if (isLoading) {
@@ -182,8 +189,8 @@ export default function ProductDetails() {
           />
         </div>
         {token && <div>
-          <Button label="Deletar produto" icon={TbTrash} secondary onClick={handleDelete} />
-          <Button label="Atualizar produto" disabled={!isFilled} icon={TbArrowRight} />
+          <Button type="button" label="Deletar o produto" icon={TbTrash} secondary confirm onClick={handleDelete} />
+          <Button label="Atualizar o produto" disabled={!isFilled} confirm icon={TbArrowRight} />
         </div>}
       </form>
     </>

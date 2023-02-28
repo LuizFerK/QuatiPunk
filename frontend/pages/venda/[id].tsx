@@ -127,7 +127,7 @@ export default function OrderDetails() {
           ))}
         </ol>
         <Payments value={payment} onChange={payment => setPayment(payment)} disabled  />
-        {token && <Button label="Deletar venda" icon={TbTrash} secondary onClick={handleDelete} />}
+        {token && <Button label="Deletar a venda" icon={TbTrash} secondary onClick={handleDelete} />}
       </main>
     </>
   )

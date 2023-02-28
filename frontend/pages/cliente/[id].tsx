@@ -73,8 +73,15 @@ export default function ClientDetails() {
   }
 
   async function handleDelete() {
-    await deleteClient(client.cpf)
-    push('/clientes')
+    try {
+      await deleteClient(client.cpf)
+      push('/clientes')
+    } catch {
+      setErrors(lastErrors => [
+        {message: "Não foi possível deletar o cliente pois existe uma ou mais vendas atreladas a ele" },
+        ...lastErrors
+      ] as Error[])
+    }
   }
 
   if (!client) {
@@ -152,8 +159,8 @@ export default function ClientDetails() {
         />
         {token ? (
           <div>
-            <Button label="Deletar cliente" icon={TbTrash} secondary onClick={handleDelete} />
-            <Button label="Atualizar cliente" disabled={!isFilled} icon={TbArrowRight} />
+            <Button label="Deletar o cliente" icon={TbTrash} secondary confirm onClick={handleDelete} />
+            <Button label="Atualizar o cliente" disabled={!isFilled} confirm icon={TbArrowRight} />
           </div>
         ) : <div />}
       </form>

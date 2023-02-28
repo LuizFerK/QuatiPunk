@@ -57,3 +57,15 @@
 .active svg {
   color: var(--color-primary);
 }
+
+.toConfirm:hover {
+  background-color: var(--color-red);
+}
+
+.toConfirm label {
+  color: var(--color-red);
+}
+
+.toConfirm:hover svg {
+  color: var(--color-white);
+}

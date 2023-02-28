@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, MouseEvent } from 'react'
+import { ButtonHTMLAttributes, DetailedHTMLProps, MouseEvent, useState } from 'react'
 import { IconType } from 'react-icons'
 import classNames from 'classnames'
 
@@ -9,26 +9,45 @@ interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
   icon: IconType
   active?: boolean
   secondary?: boolean
+  confirm?: boolean
   label?: string
   labelPosition?: "bottom" | "top" | "bottom-left"
 }
 
-export default function Button({ icon: Icon, label, disabled, labelPosition, active, secondary, onClick, ...rest }: ButtonProps) {
+export default function Button({ icon: Icon, label, disabled, labelPosition, active, confirm, secondary, onClick, ...rest }: ButtonProps) {
+  const [confirmation, setConfirmation] = useState(false)
+
   const buttonStyle = classNames({
     [styles.container]: true,
     [styles.primary]: !secondary,
-    [styles.active]: active
+    [styles.active]: active,
+    [styles.toConfirm]: confirmation,
   })
 
   function handleOnClick(e: MouseEvent<HTMLButtonElement>) {
     e.stopPropagation()
-    onClick && onClick(e)
+
+    if (!confirm) {
+      onClick && onClick(e)
+    }
+    
+    if (confirm && confirmation) {
+      onClick && onClick(e)
+    } else {
+      setConfirmation(true)
+    }
   }
 
   return (
-    <button className={buttonStyle} onClick={handleOnClick} disabled={disabled} {...rest}>
+    <button
+      className={buttonStyle}
+      onClick={handleOnClick}
+      disabled={disabled}
+      onMouseLeave={() => setConfirmation(false)}
+      {...rest}
+    >
       {label && !disabled ? (
-        <Tooltip labelPosition={labelPosition} label={label}>
+        <Tooltip labelPosition={labelPosition} label={confirmation ? `Tem certeza que deseja ${label.toLowerCase()}?` : label}>
           <Icon />
         </Tooltip>
       ) : <Icon />}

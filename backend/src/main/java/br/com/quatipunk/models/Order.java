@@ -30,7 +30,7 @@ public class Order {
 	@JoinColumn(name = "clientCpf")
 	private Client client;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
 	Set<OrderProduct> products  = new HashSet<>();
 
 	public static Order paramsToOrder(OrderParamsDTO orderParams) {
