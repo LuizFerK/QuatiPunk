@@ -86,7 +86,7 @@ export default function Product({
                 <Category type={product.category} />
                 <div>
                   <span className={poppins.className}>R$</span>
-                  <span className={poppins.className}>{product.price}</span>
+                  <span className={poppins.className}>{product.price.toFixed(2)}</span>
                 </div>
               </>
             ) : (

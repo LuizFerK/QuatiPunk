@@ -52,7 +52,7 @@ export default function Order({ order }: OrderProps) {
             </div>
             <div>
               <span className={poppins.className}>R$</span>
-              <span className={poppins.className}>{order.price}</span>
+              <span className={poppins.className}>{order.price.toFixed(2)}</span>
             </div>
           </section>
         </header>

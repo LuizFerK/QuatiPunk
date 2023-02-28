@@ -44,7 +44,7 @@ export default function NavBar() {
   const liStyle = (liRoute: string) => classNames({
     [styles.li]: true,
     [styles.liExtended]: isOpen,
-    [styles.selected]: liRoute == route
+    [styles.selected]: liRoute.includes(route.split("/")[1])
   })
 
   const admStyle = () => classNames({
