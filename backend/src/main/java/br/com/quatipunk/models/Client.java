@@ -3,7 +3,6 @@ package br.com.quatipunk.models;
 import javax.persistence.*;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -31,8 +30,6 @@ public class Client {
   @Size(min = 3, max = 40, message = "O endereço do cliente deve ter no mínimo 3 e no máximo 40 caracteres.")
   private String address;
 
-  @NotNull
-  @NotEmpty
   @Email(message = "Não é um endereço de E-mail válido.")
   private String mail;
 

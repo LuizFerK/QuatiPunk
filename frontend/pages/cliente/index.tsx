@@ -36,8 +36,7 @@ export default function ClientDetails() {
       !!client.name &&
       !!client.cpf &&
       !!client.phone &&
-      !!client.address &&
-      !!client.mail
+      !!client.address
     ) {
       return setIsFilled(true)
     }
@@ -118,7 +117,7 @@ export default function ClientDetails() {
         <Input
           icon={TbMail}
           label="Email:"
-          placeholder="john@doe.com"
+          placeholder="Digite o email..."
           type="email"
           value={client.mail}
           onChange={e => setClient({ ...client, mail: e.target.value })}
