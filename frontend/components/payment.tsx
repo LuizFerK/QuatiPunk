@@ -5,6 +5,7 @@ import {
 import classNames from 'classnames'
 
 import styles from '../styles/components/payment.module.css'
+import Tooltip from './tooltip'
 
 interface PaymentProps {
   type: Payment
@@ -30,7 +31,12 @@ export default function Payment({ type, selectable, selected }: PaymentProps) {
     card: <TbCreditCard />,
     cash: <TbCash />,
     pix: <PixIcon color={selected ? "#FFFFFF" : "#7E7E7E"} />
-    
+  }
+
+  const paymentLabel = {
+    card: "Cartão",
+    cash: "Dinheiro",
+    pix: "Pix"
   }
 
   const paymentStyle = classNames({
@@ -41,8 +47,10 @@ export default function Payment({ type, selectable, selected }: PaymentProps) {
   })
 
   return (
-    <div className={paymentStyle}>
-      {paymentIcon[type]}
-    </div>
+    <Tooltip label={paymentLabel[type]}>
+      <div className={paymentStyle}>
+        {paymentIcon[type]}
+      </div>
+    </Tooltip>
   )
 }

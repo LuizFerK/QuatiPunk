@@ -44,6 +44,6 @@
   color: var(--color-primary);
 }
 
-.container div:last-of-type {
+.container > div:last-of-type {
   margin: 16px 0 28px;
 }

@@ -151,7 +151,7 @@ export default function ProductDetails() {
           />
         </div>
         <div>
-          <Button disabled={!isFilled} icon={TbArrowRight} />
+          <Button label="Criar produto" disabled={!isFilled} icon={TbArrowRight} />
         </div>
       </form>
     </>

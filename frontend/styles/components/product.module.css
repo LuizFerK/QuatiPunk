@@ -84,6 +84,14 @@
 .infos > div:nth-child(1) svg {
   min-width: 24px;
   min-height: 24px;
+  margin-right: 10px;
+  margin-top: -1px;
+}
+
+.infos > div:nth-child(1) button svg {
+  min-width: 24px;
+  min-height: 24px;
+  margin-right: 0;
   margin-top: -1px;
 }
 
@@ -107,7 +115,7 @@
   background-color: var(--color-green-light);
 }
 
-.infos > div:nth-child(3) span:first-child {
+.infos > div:nth-child(3) span:first-of-type {
   font-size: 14px;
   font-weight: bold;
   margin-right: 5px;

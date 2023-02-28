@@ -31,8 +31,8 @@ export default function Produtos() {
     if (!search.default) {
       search.input && setFilteredProducts(allProducts => allProducts.filter(product => product.name.toLowerCase().includes((search.input as string).toLowerCase())))
       search.category && setFilteredProducts(allProducts => allProducts.filter(product => product.category === search.category))
-      search.order === "asc" && setFilteredProducts(allProducts => [...allProducts].sort((a, b) => (a.name > b.name) ? 1 : -1))
-      search.order === "desc" && setFilteredProducts(allProducts => [...allProducts].sort((a, b) => (a.name > b.name) ? -1 : 1))
+      search.order === "asc" && setFilteredProducts(allProducts => [...allProducts].sort((a, b) => (a.id > b.id) ? 1 : -1))
+      search.order === "desc" && setFilteredProducts(allProducts => [...allProducts].sort((a, b) => (a.id > b.id) ? -1 : 1))
     }
   }, [products, search])
 

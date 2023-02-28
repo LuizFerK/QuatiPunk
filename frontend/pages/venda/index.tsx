@@ -162,8 +162,8 @@ export default function OrderDetails() {
             />
           ))}
         </ol>
-        <Payments value={payment} onChange={payment => setPayment(payment)}  />
-        <Button disabled={!isFilled} icon={TbArrowRight} />
+        <Payments value={payment} onChange={payment => setPayment(payment)} />
+        <Button label="Criar venda" disabled={!isFilled} icon={TbArrowRight} />
       </form>
     </>
   )

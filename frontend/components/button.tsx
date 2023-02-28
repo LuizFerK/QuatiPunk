@@ -26,7 +26,7 @@ export default function Button({ icon: Icon, label, disabled, labelPosition, act
   }
 
   return (
-    <button className={buttonStyle} onClick={handleOnClick} {...rest}>
+    <button className={buttonStyle} onClick={handleOnClick} disabled={disabled} {...rest}>
       {label && !disabled ? (
         <Tooltip labelPosition={labelPosition} label={label}>
           <Icon />

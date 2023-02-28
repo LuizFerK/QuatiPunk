@@ -64,7 +64,7 @@ export default function Admin() {
               type="password"
               onChange={e => setPassword(e.target.value)}
             />
-            <Button disabled={password == "" || name == ""} icon={TbArrowRight} onClick={handleSignIn} />
+            <Button label="Entrar" disabled={password == "" || name == ""} icon={TbArrowRight} onClick={handleSignIn} />
           </>
         ) : (
           <>

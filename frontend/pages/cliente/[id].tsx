@@ -152,8 +152,8 @@ export default function ClientDetails() {
         />
         {token ? (
           <div>
-            <Button icon={TbTrash} secondary onClick={handleDelete} />
-            <Button disabled={!isFilled} icon={TbArrowRight} />
+            <Button label="Deletar cliente" icon={TbTrash} secondary onClick={handleDelete} />
+            <Button label="Atualizar cliente" disabled={!isFilled} icon={TbArrowRight} />
           </div>
         ) : <div />}
       </form>

@@ -6,12 +6,14 @@ import classNames from 'classnames'
 import Button from './button'
 
 import styles from '../styles/components/counter.module.css'
+import Tooltip from './tooltip'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
 interface CounterProps {
   icon: IconType
   label?: string
+  tooltip?: string
   value: number
   maxQuantity?: number
   noBackground?: boolean
@@ -24,6 +26,7 @@ interface CounterProps {
 export default function Counter({
   icon: Icon,
   label,
+  tooltip,
   value,
   maxQuantity,
   noBackground,
@@ -69,8 +72,20 @@ export default function Counter({
     <div>
       {label && <label className={labelStyle}>{label}</label>}
       <div className={containerStyle}>
-        <Icon />
-        {!disabled && <Button type="button" icon={removable && value === 1 ? TbTrash : TbMinus} secondary onClick={handleMinus} />}
+        {tooltip ? (
+          <Tooltip label={tooltip}>
+            <Icon />
+          </Tooltip>
+        ) : <Icon />}
+        {!disabled && (
+          <Button
+            label="Diminuir"
+            type="button"
+            icon={removable && value === 1 ? TbTrash : TbMinus}
+            secondary
+            onClick={handleMinus}
+          />
+        )}
         <input
           className={poppins.className}
           disabled={disabled}
@@ -80,6 +95,7 @@ export default function Counter({
         />
         {!disabled ? (
           <Button
+            label="Aumentar"
             type="button"
             disabled={maxQuantity && value + 1 > maxQuantity || false}
             icon={maxQuantity && value + 1 > maxQuantity ? TbForbid2 : TbPlus}

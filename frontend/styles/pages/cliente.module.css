@@ -42,12 +42,12 @@
   margin-bottom: 0;
 }
 
-.container div:last-of-type {
+.container > div:last-of-type {
   margin-top: 28px;
   display: flex;
 }
 
-.container div:last-of-type button + button {
+.container > div:last-of-type button + button {
   margin-left: 16px;
 }
 

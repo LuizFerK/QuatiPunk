@@ -9,6 +9,7 @@ import Category from '../components/category'
 
 import styles from '../styles/components/product.module.css'
 import Counter from './counter'
+import Tooltip from './tooltip'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
@@ -66,7 +67,9 @@ export default function Product({
       <LinkWrapper href={`/produto/${product.id}`} disabled={!!counter && !forceHover}>
         {!small && (
           <aside className={styles.aside}>
-            <span className={poppins.className}>{product.id}</span>
+            <Tooltip label="Código">
+              <span className={poppins.className}>{product.id}</span>
+            </Tooltip>
           </aside>
         )}
         <div className={styles.content}>
@@ -80,19 +83,22 @@ export default function Product({
             {!counter ? (
               <>
                 <div>
-                  <TbBox />
+                  <Tooltip label="Quantidade">
+                    <TbBox />
+                  </Tooltip>
                   <p className={poppins.className}>{product.quantity}</p>
                 </div>
                 <Category type={product.category} />
-                <div>
+                <Tooltip label="Quantidade">
                   <span className={poppins.className}>R$</span>
                   <span className={poppins.className}>{product.price.toFixed(2)}</span>
-                </div>
+                </Tooltip>
               </>
             ) : (
               <>
                 <Counter
                   icon={TbBox}
+                  tooltip="Quantidade"
                   value={counterValue || 0}
                   onChange={onChangeCounter}
                   disabled={disabled}

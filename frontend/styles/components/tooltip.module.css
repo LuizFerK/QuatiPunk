@@ -1,5 +1,8 @@
 .container {
   position: relative;
+  display: grid;
+  place-items: center;
+  height: min-content;
 }
 
 .label {
@@ -16,11 +19,9 @@
   box-shadow: var(--shadow);
 
   font-size: 14px;
-}
-
-.label {
   color: var(--color-gray);
   white-space: nowrap;
+  margin: 0px !important;
 }
 
 .labelTop {

@@ -123,7 +123,7 @@ export default function ClientDetails() {
           onChange={e => setClient({ ...client, mail: e.target.value })}
         />
         <div>
-          <Button disabled={!isFilled} icon={TbArrowRight} />
+          <Button label="Criar cliente" disabled={!isFilled} icon={TbArrowRight} />
         </div>
       </form>
     </>

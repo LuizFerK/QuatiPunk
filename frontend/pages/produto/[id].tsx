@@ -182,8 +182,8 @@ export default function ProductDetails() {
           />
         </div>
         {token && <div>
-          <Button icon={TbTrash} secondary onClick={handleDelete} />
-          <Button disabled={!isFilled} icon={TbArrowRight} />
+          <Button label="Deletar produto" icon={TbTrash} secondary onClick={handleDelete} />
+          <Button label="Atualizar produto" disabled={!isFilled} icon={TbArrowRight} />
         </div>}
       </form>
     </>
