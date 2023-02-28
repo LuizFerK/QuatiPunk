@@ -76,6 +76,7 @@ export default function Search({ placeholder, clients, categories, onChange }: S
             <button key={category} type="button" onClick={() => handleSelectCategory(category)}>
               <Category
                 type={category}
+                labelPosition="bottom"
                 selectable
                 selected={category === opts.category}
               />
@@ -85,18 +86,27 @@ export default function Search({ placeholder, clients, categories, onChange }: S
       )}
       <div className={styles.buttons}>
         <Button
+          label="Ordernação decrescente"
+          labelPosition="bottom"
           icon={TbSortDescending}
           secondary
           active={opts.order === "asc"}
           onClick={() => setOpts({...opts, order: "asc"})}
         />
         <Button
+          label="Ordernação crescente"
+          labelPosition="bottom"
           icon={TbSortAscending}
           secondary
           active={opts.order === "desc"}
           onClick={() => setOpts({...opts, order: "desc"})}
         />
-        <Button icon={TbArrowRight} onClick={handleSearch} />
+        <Button
+          label="Aplicar filtros"
+          labelPosition="bottom"
+          icon={TbArrowRight}
+          onClick={handleSearch}
+        />
       </div>
     </section>
   )

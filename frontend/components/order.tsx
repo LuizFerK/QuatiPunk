@@ -6,6 +6,7 @@ import parseDate from '../utils/parseDate'
 import Product from './product'
 
 import styles from '../styles/components/order.module.css'
+import Tooltip from './tooltip'
 
 const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 
@@ -18,19 +19,25 @@ export default function Order({ order }: OrderProps) {
     <li className={styles.li}>
       <Link href={`/venda/${order.id}`}>
         <header className={styles.header}>
-          <section className={styles.id}>
-            <p className={poppins.className}>{order.id}</p>
-            <TbBarcode />
-          </section>
+          <Tooltip label="Código">
+            <section className={styles.id}>
+              <p className={poppins.className}>{order.id}</p>
+              <TbBarcode />
+            </section>
+          </Tooltip>
           <section className={styles.infos}>
             <div>
-              <TbCalendarTime />
+              <Tooltip label="Data da venda">
+                <TbCalendarTime />
+              </Tooltip>
               <p className={poppins.className}>{parseDate(order.date)}</p>
             </div>
             {order.client && order.client.cpf ? (
               <>
                 <div>
-                  <TbUser />
+                  <Tooltip label="Nome do cliente">
+                    <TbUser />
+                  </Tooltip>
                   <p className={poppins.className}>{order.client.name}</p>
                 </div>
                 <div>
@@ -40,20 +47,24 @@ export default function Order({ order }: OrderProps) {
               </>
             ) : (
               <div>
-                <TbUser />
+                <Tooltip label="Venda para cliente não cadastrado">
+                  <TbUser />
+                </Tooltip>
                 <p className={poppins.className}>Anônimo</p>
               </div>
             )}
           </section>
           <section className={styles.values}>
             <div>
-              <TbCircleSquare />
+              <Tooltip label="Quantidade de produtos">
+                <TbCircleSquare />
+              </Tooltip>
               <p className={poppins.className}>{order.products.length}</p>
             </div>
-            <div>
+            <Tooltip label="Preço">
               <span className={poppins.className}>R$</span>
               <span className={poppins.className}>{order.price.toFixed(2)}</span>
-            </div>
+            </Tooltip>
           </section>
         </header>
       </Link>

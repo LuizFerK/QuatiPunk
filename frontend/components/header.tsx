@@ -11,6 +11,8 @@ const poppins = Poppins({ weight: "400", subsets: ['latin'] })
 export default function Header() {
   const { route, back, push } = useRouter()
 
+  const createLabel = route.slice(1, 2) + route.slice(2).replace("s", "")
+
   const parsedRouteName = route.slice(1, 2).toUpperCase() + route.slice(2)
   const routeName = () => {
     const name = parsedRouteName.replace("/[id]", "")
@@ -31,9 +33,22 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <Button icon={TbArrowLeft} secondary onClick={back} />
+      <Button
+        label="Voltar"
+        labelPosition="bottom"
+        icon={TbArrowLeft}
+        secondary
+        onClick={back}
+      />
       <h1 className={poppins.className}>{routeName()}</h1>
-      {renderCreateButton() && <Button icon={TbPlus} onClick={handleCreate} />}
+      {renderCreateButton() && (
+        <Button
+          label={`Adicionar ${createLabel}`}
+          labelPosition="bottom-left"
+          icon={TbPlus}
+          onClick={handleCreate}
+        />
+      )}
     </header>
   )
 }

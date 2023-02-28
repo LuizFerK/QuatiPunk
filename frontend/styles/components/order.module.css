@@ -105,7 +105,7 @@
   background-color: var(--color-green-light);
 }
 
-.values div:last-child span:first-child {
+.values div:last-child span:first-of-type {
   font-size: 14px;
   font-weight: bold;
   margin-right: 5px;

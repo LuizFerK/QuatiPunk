@@ -9,14 +9,16 @@ import {
 import classNames from 'classnames'
 
 import styles from '../styles/components/category.module.css'
+import Tooltip from './tooltip'
 
 interface CategoryProps {
   type: Category
+  labelPosition?: "bottom" | "top"
   selectable?: boolean
   selected?: boolean
 }
 
-export default function Category({ type, selectable, selected }: CategoryProps) {
+export default function Category({ type, selectable, labelPosition, selected }: CategoryProps) {
   const categoryIcon = {
     electrical: <TbBulb />,
     paints: <TbPaint />,
@@ -24,6 +26,15 @@ export default function Category({ type, selectable, selected }: CategoryProps) 
     connections: <TbPlugConnected />,
     cement: <TbBrandAsana />,
     finishes: <TbNorthStar />,
+  }
+
+  const categoryLabel = {
+    electrical: "Eletrônicos",
+    paints: "Tintas",
+    hardware: "Ferragens",
+    connections: "Conexões e Reparos",
+    cement: "Cimento e Argamassas",
+    finishes: "Acabamentos",
   }
 
   const categoryStyle = classNames({
@@ -35,8 +46,10 @@ export default function Category({ type, selectable, selected }: CategoryProps) 
   })
 
   return (
-    <div className={categoryStyle}>
-      {categoryIcon[type]}
-    </div>
+    <Tooltip label={categoryLabel[type]} labelPosition={labelPosition}>
+      <div className={categoryStyle}>
+        {categoryIcon[type]}
+      </div>
+    </Tooltip>
   )
 }
