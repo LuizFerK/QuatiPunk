@@ -36,17 +36,12 @@ interface Order {
   products: OrderProduct[]
 }
 
-interface OrderProductCreate {
-  quantity: number
-  productId: number
-}
-
 interface OrderCreate {
   date: string
   payment: Payment
   price: number
   clientCpf: string | null
-  products: OrderProductCreate[]
+  products: OrderProduct[]
 }
 
 interface Error {

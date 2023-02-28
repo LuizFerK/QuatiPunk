@@ -81,7 +81,7 @@ export default function OrderDetails() {
       payment: payment,
       clientCpf: client.cpf || null,
       price: selectedProducts.reduce((price, product) => price + product.product.price, 0),
-      products: selectedProducts.map(product => ({ productId: product.product.id, quantity: product.quantity })),
+      products: selectedProducts,
     }
 
     const { data } = await createOrder(order)
