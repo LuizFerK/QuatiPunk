@@ -56,8 +56,9 @@ export default function ClientDetails() {
       setErrors(lastErrors => [{ field: "phone", message: "Telefone deve ter 11 caracteres" }, ...lastErrors] as Error[])
     }
 
+    if (client.cpf && client.cpf.length != 11 || client.phone && (client.phone.length != 11)) return
+  
     const { data } = await createClient(client)
-    
     push(`/cliente/${data.cpf}`)
   }
 
@@ -80,7 +81,7 @@ export default function ClientDetails() {
         {errors.length > 0 && (
           <div className={styles.errors}>
             {errors.map(error => (
-              <p className={poppins.className}>{error.message}</p>
+              <p key={error.field} className={poppins.className}>{error.message}</p>
             ))}
           </div>
         )}

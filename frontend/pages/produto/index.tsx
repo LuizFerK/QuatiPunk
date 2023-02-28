@@ -85,7 +85,7 @@ export default function ProductDetails() {
         {errors.length > 0 && (
           <section className={styles.errors}>
             {errors.map(error => (
-              <p className={poppins.className}>{error.message}</p>
+              <p key={error.field} className={poppins.className}>{error.message}</p>
             ))}
           </section>
         )}

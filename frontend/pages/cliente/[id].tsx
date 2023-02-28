@@ -111,7 +111,7 @@ export default function ClientDetails() {
         {errors.length > 0 && (
           <div className={styles.errors}>
             {errors.map(error => (
-              <p className={poppins.className}>{error.message}</p>
+              <p key={error.field} className={poppins.className}>{error.message}</p>
             ))}
           </div>
         )}

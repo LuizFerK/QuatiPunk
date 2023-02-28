@@ -21,7 +21,7 @@ export default function Button({ icon: Icon, label, disabled, labelPosition, act
     [styles.container]: true,
     [styles.primary]: !secondary,
     [styles.active]: active,
-    [styles.toConfirm]: confirmation,
+    [styles.toConfirm]: confirm && confirmation,
   })
 
   function handleOnClick(e: MouseEvent<HTMLButtonElement>) {
@@ -33,6 +33,7 @@ export default function Button({ icon: Icon, label, disabled, labelPosition, act
     
     if (confirm && confirmation) {
       onClick && onClick(e)
+      setConfirmation(false)
     } else {
       setConfirmation(true)
     }
@@ -47,7 +48,7 @@ export default function Button({ icon: Icon, label, disabled, labelPosition, act
       {...rest}
     >
       {label && !disabled ? (
-        <Tooltip labelPosition={labelPosition} label={confirmation ? `Tem certeza que deseja ${label.toLowerCase()}?` : label}>
+        <Tooltip labelPosition={labelPosition} label={confirm && confirmation ? `Tem certeza que deseja ${label.toLowerCase()}?` : label}>
           <Icon />
         </Tooltip>
       ) : <Icon />}
