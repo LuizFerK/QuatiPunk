@@ -35,7 +35,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState<Product>({
     quantity: 0,
     minQuantity: 0,
-    um: "cm"
+    um: "un"
   } as Product)
   
   const categoryList: Category[] = ["electrical", "paints", "hardware", "connections", "cement", "finishes"]
@@ -130,8 +130,8 @@ export default function ProductDetails() {
             <label className={poppins.className}>U.m.:</label>
             <Select
               icon={TbRuler}
-              value={product.um || "cm"}
-              options={["cm", "m", "mm"]}
+              value={product.um || "un"}
+              options={["un", "kg", "cm", "m", "mm"]}
               onSelect={um => setProduct({ ...product, um: um })}
             />
           </div>

@@ -18,6 +18,7 @@ interface ProductProps {
   counter?: boolean
   disabled?: boolean
   counterValue?: number
+  maxQuantity?: number
   forceHover?: boolean
   onChangeCounter?: (value: number) => void
   onRemoveProduct?: () => void
@@ -49,6 +50,7 @@ export default function Product({
   counter,
   disabled,
   counterValue,
+  maxQuantity,
   forceHover,
   onChangeCounter,
   onRemoveProduct
@@ -97,6 +99,7 @@ export default function Product({
                   removable
                   onRemove={onRemoveProduct}
                   noBackground
+                  maxQuantity={maxQuantity}
                 />
                 {forceHover && (
                   <Category type={product.category} selected />

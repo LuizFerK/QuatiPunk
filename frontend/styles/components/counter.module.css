@@ -53,6 +53,14 @@
   background: var(--color-white-light);
 }
 
+.noBackground button:hover {
+  background: var(--color-white);
+}
+
+.noBackground button:hover svg {
+  color: var(--color-primary);
+}
+
 .noBackground button svg {
   color: var(--color-white);
 }

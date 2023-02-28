@@ -56,7 +56,7 @@ export default function OrderDetails() {
       setClients(clients)
 
       const { data: products } = await getProducts()
-      setProducts(products)
+      setProducts(products.filter(product => product.quantity > 0))
 
       setIsLoading(false)
     }
@@ -158,6 +158,7 @@ export default function OrderDetails() {
               onRemoveProduct={() => handleRemoveProduct(product)}
               small
               counter
+              maxQuantity={product.product.quantity}
             />
           ))}
         </ol>

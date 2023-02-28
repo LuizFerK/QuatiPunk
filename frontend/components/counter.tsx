@@ -1,5 +1,5 @@
 import { Poppins } from '@next/font/google'
-import { TbMinus, TbPlus, TbTrash } from 'react-icons/tb'
+import { TbForbid2, TbMinus, TbPlus, TbTrash } from 'react-icons/tb'
 import { IconType } from 'react-icons'
 import classNames from 'classnames'
 
@@ -13,6 +13,7 @@ interface CounterProps {
   icon: IconType
   label?: string
   value: number
+  maxQuantity?: number
   noBackground?: boolean
   disabled?: boolean
   removable?: boolean
@@ -20,7 +21,17 @@ interface CounterProps {
   onChange?: (value: number) => void
 }
 
-export default function Counter({ icon: Icon, label, value, noBackground, disabled, removable, onRemove, onChange }: CounterProps) {
+export default function Counter({
+  icon: Icon,
+  label,
+  value,
+  maxQuantity,
+  noBackground,
+  disabled,
+  removable,
+  onRemove,
+  onChange
+}: CounterProps) {
   const containerStyle = classNames({
     [styles.container]: true,
     [styles.noBackground]: noBackground,
@@ -33,6 +44,8 @@ export default function Counter({ icon: Icon, label, value, noBackground, disabl
   })
 
   function handleInput(newValue: string) {
+    if (maxQuantity && Number(newValue) > maxQuantity) return
+
     onChange && onChange(Number(newValue))
   }
 
@@ -47,6 +60,8 @@ export default function Counter({ icon: Icon, label, value, noBackground, disabl
   }
 
   function handlePlus() {
+    if (maxQuantity && value + 1 > maxQuantity) return
+
     onChange && onChange(value + 1)
   }
 
@@ -63,7 +78,15 @@ export default function Counter({ icon: Icon, label, value, noBackground, disabl
           type="number"
           onChange={e => handleInput(e.target.value)}
         />
-        {!disabled ? <Button type="button" icon={TbPlus} secondary onClick={handlePlus} /> : <div />}
+        {!disabled ? (
+          <Button
+            type="button"
+            disabled={maxQuantity && value + 1 > maxQuantity || false}
+            icon={maxQuantity && value + 1 > maxQuantity ? TbForbid2 : TbPlus}
+            onClick={handlePlus}
+            secondary
+          />
+        ) : <div />}
       </div>
     </div>
   )
